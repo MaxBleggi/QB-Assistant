@@ -17,6 +17,10 @@ from .balance_sheet_rules import (
     HierarchyConsistencyRule,
     NumericAmountRule,
 )
+from .pl_rules import (
+    PLRequiredSectionsRule,
+    PLPeriodConsistencyRule,
+)
 
 __all__ = [
     'Validator',
@@ -30,4 +34,6 @@ __all__ = [
     'RequiredSectionsRule',
     'HierarchyConsistencyRule',
     'NumericAmountRule',
+    'PLRequiredSectionsRule',
+    'PLPeriodConsistencyRule',
 ]

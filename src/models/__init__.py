@@ -6,8 +6,10 @@ Provides base DataModel wrapper and will include document-specific models
 """
 from .base import DataModel
 from .balance_sheet import BalanceSheetModel
+from .pl_model import PLModel
 
 __all__ = [
     'DataModel',
     'BalanceSheetModel',
+    'PLModel',
 ]
