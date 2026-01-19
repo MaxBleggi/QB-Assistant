@@ -25,7 +25,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 **Estimated Sprints**: 5
 
 - [x] Sprint 1.1: File Loader & Validation Framework
-- [ ] Sprint 1.2: Balance Sheet Parser
+- [x] Sprint 1.2: Balance Sheet Parser
 - [ ] Sprint 1.3: Profit & Loss Parser with Historical Data
 - [ ] Sprint 1.4: Cash Flow Statement Parser
 - [ ] Sprint 1.5: Historical Data File Parser

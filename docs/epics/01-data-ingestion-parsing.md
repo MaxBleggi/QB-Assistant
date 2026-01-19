@@ -44,7 +44,7 @@ Create a file loading system that accepts both CSV and Excel files, automaticall
 
 ### Sprint 1.2: Balance Sheet Parser
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Implement a parser to extract Balance Sheet data including assets, liabilities, and equity from QuickBooks export format. Handle common variations in QuickBooks export structures, including hierarchical account structures (parent/child accounts) and subtotals. Create a data model for Balance Sheet representation that preserves account hierarchy and categorization. Include comprehensive unit tests with sample Balance Sheet data.

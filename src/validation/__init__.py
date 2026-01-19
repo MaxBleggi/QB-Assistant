@@ -12,6 +12,11 @@ from .rules import (
     ValidationRule,
 )
 from .validator import ValidationReport, Validator
+from .balance_sheet_rules import (
+    RequiredSectionsRule,
+    HierarchyConsistencyRule,
+    NumericAmountRule,
+)
 
 __all__ = [
     'Validator',
@@ -22,4 +27,7 @@ __all__ = [
     'DataTypeRule',
     'NonEmptyRule',
     'StructuralConsistencyRule',
+    'RequiredSectionsRule',
+    'HierarchyConsistencyRule',
+    'NumericAmountRule',
 ]

@@ -11,6 +11,8 @@ from .sample_data import (
     create_ragged_sample,
     create_valid_sample,
     create_wrong_types_sample,
+    create_balance_sheet_sample,
+    create_malformed_balance_sheet_sample,
 )
 
 __all__ = [
@@ -21,4 +23,6 @@ __all__ = [
     'create_missing_columns_sample',
     'create_wrong_types_sample',
     'create_ragged_sample',
+    'create_balance_sheet_sample',
+    'create_malformed_balance_sheet_sample',
 ]
