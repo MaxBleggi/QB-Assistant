@@ -1,0 +1,12 @@
+# QB-Assistant Python Dependencies
+# Core data manipulation and file handling
+
+# Data manipulation and analysis
+pandas>=2.0.0              # Core DataFrame operations and CSV/Excel handling
+
+# Excel file support for pandas
+openpyxl>=3.0.0           # Modern Excel (.xlsx) file support
+
+# Testing framework
+pytest>=7.0.0             # Unit testing framework
+pytest-cov                # Test coverage reporting
