@@ -30,12 +30,12 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [x] Sprint 1.4: Cash Flow Statement Parser
 - [ ] Sprint 1.5: Historical Data File Parser
 
-### Epic 2: Core Metrics Calculation [NOT STARTED]
+### Epic 2: Core Metrics Calculation [STARTED]
 **Purpose**: Calculate executive summary metrics (revenue, margins, cash flow) and KPIs with month-over-month and year-over-year comparisons
 **Priority**: High
 **Estimated Sprints**: 3
 
-- [ ] Sprint 2.1: Revenue & Margin Calculations
+- [x] Sprint 2.1: Revenue & Margin Calculations
 - [ ] Sprint 2.2: Cash Flow & Liquidity Metrics
 - [ ] Sprint 2.3: Key Performance Indicators (KPIs)
 

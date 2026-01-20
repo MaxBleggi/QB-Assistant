@@ -1,6 +1,6 @@
 # Epic 2: Core Metrics Calculation
 
-**Status**: NOT STARTED
+**Status**: STARTED
 **Priority**: High
 **Dependencies**: Epic 1 (requires parsed financial data)
 
@@ -26,7 +26,7 @@ These calculations form the core analytical value of QB-Assistant, providing boo
 
 ### Sprint 2.1: Revenue & Margin Calculations
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Implement the calculation engine for revenue metrics and margin analysis. Calculate total revenue for the current period, compute month-over-month growth (comparing to previous month), and year-over-year growth (comparing to same month previous year). Implement margin calculations including gross margin (revenue minus COGS / revenue), EBITDA margin, and net profit margin. Include percentage change calculations with proper handling of zero/negative base values. Create comprehensive unit tests to verify all formulas.
