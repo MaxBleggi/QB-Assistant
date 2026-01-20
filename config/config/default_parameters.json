@@ -1,0 +1,6 @@
+{
+  "parameters": {
+    "revenue_growth_rate": 0.05,
+    "expense_adjustment_factor": 1.0
+  }
+}

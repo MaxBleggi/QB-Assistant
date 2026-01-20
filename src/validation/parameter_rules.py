@@ -68,6 +68,82 @@ class RangeValidationRule(ValidationRule):
         return ValidationResult(passed=True, errors=[])
 
 
+class PercentageRangeRule(RangeValidationRule):
+    """
+    Validates that a percentage parameter is within specified bounds.
+
+    Extends RangeValidationRule with percentage-specific error messages and
+    common percentage range defaults (0-1000%).
+    """
+
+    def __init__(self, param_name: str, min_pct: float = 0, max_pct: float = 1000):
+        """
+        Initialize percentage range validation rule.
+
+        Args:
+            param_name: Name of parameter to validate
+            min_pct: Minimum allowed percentage (default: 0%)
+            max_pct: Maximum allowed percentage (default: 1000%)
+        """
+        super().__init__(param_name, min_pct, max_pct)
+
+    def validate(self, data: Dict[str, Any]) -> ValidationResult:
+        """
+        Validate parameter is within percentage range.
+
+        Args:
+            data: Dictionary of parameters
+
+        Returns:
+            ValidationResult with pass/fail status and percentage-specific errors
+        """
+        errors = []
+
+        # Check if parameter exists in data
+        if self.param_name not in data:
+            return ValidationResult(passed=True, errors=[])
+
+        value = data[self.param_name]
+
+        # Validate value is numeric
+        if not isinstance(value, (int, float)):
+            errors.append(
+                f"{self.param_name}: must be numeric, got {type(value).__name__}"
+            )
+            return ValidationResult(passed=False, errors=errors)
+
+        # Check range bounds with percentage-specific message
+        if value < self.min_value or value > self.max_value:
+            errors.append(
+                f"{self.param_name}: must be between {self.min_value}% and {self.max_value}%, got {value}%"
+            )
+
+        if errors:
+            return ValidationResult(passed=False, errors=errors)
+
+        return ValidationResult(passed=True, errors=[])
+
+
+class GrowthRateRangeRule(RangeValidationRule):
+    """
+    Validates that a growth rate parameter is within reasonable bounds.
+
+    Extends RangeValidationRule allowing negative growth rates (for revenue
+    decline scenarios) while preventing unrealistic values.
+    """
+
+    def __init__(self, param_name: str, min_rate: float = -0.5, max_rate: float = 2.0):
+        """
+        Initialize growth rate range validation rule.
+
+        Args:
+            param_name: Name of parameter to validate
+            min_rate: Minimum allowed growth rate (default: -0.5 or -50%)
+            max_rate: Maximum allowed growth rate (default: 2.0 or 200%)
+        """
+        super().__init__(param_name, min_rate, max_rate)
+
+
 class TypeValidationRule(ValidationRule):
     """
     Validates that a parameter matches the expected Python type.

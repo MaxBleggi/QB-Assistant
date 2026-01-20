@@ -64,7 +64,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 **Estimated Sprints**: 3
 
 - [x] Sprint 5.1: GUI Framework & Basic Parameter Input
-- [ ] Sprint 5.2: Budget Parameter Forms
+- [x] Sprint 5.2: Budget Parameter Forms
 - [ ] Sprint 5.3: Forecast Assumption Forms
 
 ### Epic 6: Report Generation & Output [NOT STARTED]

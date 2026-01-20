@@ -47,7 +47,7 @@ Set up the Python GUI framework using tkinter (built into Python, works well on 
 
 ### Sprint 5.2: Budget Parameter Forms
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Build comprehensive GUI forms for budget parameters. Include input fields for revenue growth rates (overall and per-category), expense adjustment factors (percentage or absolute), account-level overrides for specific line items, and budget methodology selection (growth from prior year vs historical average vs zero-based). Provide input validation to prevent invalid values (e.g., negative growth rates where inappropriate, non-numeric input). Pre-populate forms with reasonable defaults calculated from historical data (e.g., default revenue growth = average of last 3 months growth). Include help text and tooltips explaining what each parameter controls.
