@@ -14,11 +14,11 @@ These calculations form the core analytical value of QB-Assistant, providing boo
 
 ## Success Criteria
 
-- [ ] Accurately calculates revenue, margins (gross, EBITDA, net), and growth rates (MoM, YoY)
-- [ ] Computes cash flow metrics and liquidity indicators
-- [ ] Generates comprehensive KPI set including current ratio, burn rate, and cash runway
-- [ ] All calculations validated with unit tests against known financial scenarios
-- [ ] Handles edge cases (missing data, zero denominators) gracefully
+- [x] Accurately calculates revenue, margins (gross, EBITDA, net), and growth rates (MoM, YoY)
+- [x] Computes cash flow metrics and liquidity indicators
+- [x] Generates comprehensive KPI set including current ratio, burn rate, and cash runway
+- [x] All calculations validated with unit tests against known financial scenarios
+- [x] Handles edge cases (missing data, zero denominators) gracefully
 
 ---
 
@@ -62,7 +62,7 @@ Build calculation functions for cash flow and liquidity analysis. Extract operat
 
 ### Sprint 2.3: Key Performance Indicators (KPIs)
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Implement a comprehensive KPI calculation engine for financial health indicators. Calculate current ratio (current assets / current liabilities) from Balance Sheet, compute normalized monthly burn rate (average monthly cash decrease), and calculate cash runway in months (current cash / monthly burn). Make the KPI set configurable to allow future expansion with additional metrics. Include validation to ensure ratios handle zero denominators appropriately and provide meaningful defaults or warnings.

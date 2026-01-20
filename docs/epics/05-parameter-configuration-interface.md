@@ -28,7 +28,7 @@ Configuration is saved per client, allowing different parameter sets for differe
 
 ### Sprint 5.1: GUI Framework & Basic Parameter Input
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Set up the Python GUI framework using tkinter (built into Python, works well on macOS) or an alternative like PyQt if richer UI is needed. Create the basic window management, layout structure, and navigation between different parameter forms. Implement the parameter data model - a structured representation of all budget and forecast parameters that can be saved to and loaded from configuration files (JSON or YAML format). Build save/load functionality with file I/O, error handling, and validation. Create a basic form with a few sample parameters to validate the framework works end-to-end.

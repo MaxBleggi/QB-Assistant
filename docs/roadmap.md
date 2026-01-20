@@ -37,7 +37,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 
 - [x] Sprint 2.1: Revenue & Margin Calculations
 - [x] Sprint 2.2: Cash Flow & Liquidity Metrics
-- [ ] Sprint 2.3: Key Performance Indicators (KPIs)
+- [x] Sprint 2.3: Key Performance Indicators (KPIs)
 
 ### Epic 3: Budget System [NOT STARTED]
 **Purpose**: Calculate budgets from historical data plus user-tunable parameters, then generate Budget vs Actual YTD comparisons
@@ -63,7 +63,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 **Priority**: Medium
 **Estimated Sprints**: 3
 
-- [ ] Sprint 5.1: GUI Framework & Basic Parameter Input
+- [x] Sprint 5.1: GUI Framework & Basic Parameter Input
 - [ ] Sprint 5.2: Budget Parameter Forms
 - [ ] Sprint 5.3: Forecast Assumption Forms
 

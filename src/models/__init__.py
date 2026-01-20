@@ -8,10 +8,12 @@ from .base import DataModel
 from .balance_sheet import BalanceSheetModel
 from .cash_flow_model import CashFlowModel
 from .pl_model import PLModel
+from .parameters import ParameterModel
 
 __all__ = [
     'DataModel',
     'BalanceSheetModel',
     'CashFlowModel',
     'PLModel',
+    'ParameterModel',
 ]
