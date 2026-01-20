@@ -100,6 +100,61 @@ class CashFlowModel(DataModel):
         """
         return self._hierarchy.get('FINANCING ACTIVITIES', [])
 
+    def get_periods(self) -> List[str]:
+        """
+        Get list of all period labels available in the dataset.
+
+        Extracts period labels from the first account with values in the hierarchy.
+
+        Returns:
+            List of period label strings (e.g., ['Nov 1 - Nov 30 2025', 'Nov 1 - Nov 30 2024 (PY)'])
+            Returns empty list if no periods found
+        """
+        # Search hierarchy for first node with values dict
+        def find_first_values(node: Any) -> Optional[Dict[str, float]]:
+            """Recursively search tree for first values dict."""
+            if isinstance(node, dict):
+                # Check if this node has values dict
+                if 'values' in node and isinstance(node['values'], dict):
+                    return node['values']
+
+                # Search children if present
+                if 'children' in node:
+                    for child in node['children']:
+                        result = find_first_values(child)
+                        if result:
+                            return result
+
+                # Search all values in dict
+                for key, value in node.items():
+                    if key != 'values':  # Avoid redundant check
+                        result = find_first_values(value)
+                        if result:
+                            return result
+
+            elif isinstance(node, list):
+                # Search each item in list
+                for item in node:
+                    result = find_first_values(item)
+                    if result:
+                        return result
+
+            return None
+
+        # Find first values dict in hierarchy
+        first_values = find_first_values(self._hierarchy)
+
+        if first_values:
+            return list(first_values.keys())
+        else:
+            # Fallback: check calculated rows
+            if self._calculated_rows:
+                first_calc = self._calculated_rows[0]
+                if 'values' in first_calc:
+                    return list(first_calc['values'].keys())
+
+        return []
+
     @property
     def beginning_cash(self) -> Optional[float]:
         """

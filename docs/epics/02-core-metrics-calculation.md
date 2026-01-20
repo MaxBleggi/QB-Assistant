@@ -44,7 +44,7 @@ Implement the calculation engine for revenue metrics and margin analysis. Calcul
 
 ### Sprint 2.2: Cash Flow & Liquidity Metrics
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Build calculation functions for cash flow and liquidity analysis. Extract operating cash flow from the parsed Cash Flow statement, track cash balance changes month-over-month, and compute free cash flow when capital expenditure data is available (operating cash flow minus capex). Calculate working capital from Balance Sheet (current assets minus current liabilities). Include trend analysis for cash position over time.

@@ -36,7 +36,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 **Estimated Sprints**: 3
 
 - [x] Sprint 2.1: Revenue & Margin Calculations
-- [ ] Sprint 2.2: Cash Flow & Liquidity Metrics
+- [x] Sprint 2.2: Cash Flow & Liquidity Metrics
 - [ ] Sprint 2.3: Key Performance Indicators (KPIs)
 
 ### Epic 3: Budget System [NOT STARTED]
