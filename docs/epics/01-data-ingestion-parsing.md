@@ -14,11 +14,11 @@ All subsequent epics depend on this data ingestion layer, making it critical to 
 
 ## Success Criteria
 
-- [ ] Successfully parses all four QuickBooks document types (Balance Sheet, P&L, Cash Flow, Historical Data)
-- [ ] Handles both CSV and Excel file formats reliably
-- [ ] Extracts hierarchical account structures and historical comparison data
-- [ ] Validates data integrity and provides actionable error messages for malformed files
-- [ ] Unit tests cover common QuickBooks format variations and error cases
+- [x] Successfully parses all four QuickBooks document types (Balance Sheet, P&L, Cash Flow, Historical Data)
+- [x] Handles both CSV and Excel file formats reliably
+- [x] Extracts hierarchical account structures and historical comparison data
+- [x] Validates data integrity and provides actionable error messages for malformed files
+- [x] Unit tests cover common QuickBooks format variations and error cases
 
 ---
 
@@ -62,7 +62,7 @@ Implement a parser to extract Balance Sheet data including assets, liabilities, 
 
 ### Sprint 1.3: Profit & Loss Parser with Historical Data
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Build a Profit & Loss parser that extracts revenue, cost of goods sold, expenses, and net income data from QuickBooks exports. Critically, this parser must handle embedded historical data for month-over-month and year-over-year comparisons, as P&L exports can include multiple time period columns (current month, previous month, previous year, YTD). Support both monthly and year-to-date column formats. Create a data model that preserves time-series comparison data.
@@ -81,7 +81,7 @@ Build a Profit & Loss parser that extracts revenue, cost of goods sold, expenses
 
 ### Sprint 1.4: Cash Flow Statement Parser
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Implement a Cash Flow statement parser that extracts cash flow from operating activities, investing activities, and financing activities. Extract beginning and ending cash balances as well as line-item detail within each cash flow category. Build a data model that represents the three-category cash flow structure while preserving individual line items for detailed analysis.

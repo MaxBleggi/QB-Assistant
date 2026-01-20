@@ -14,6 +14,10 @@ from .sample_data import (
     create_balance_sheet_sample,
     create_malformed_balance_sheet_sample,
 )
+from .cash_flow_fixtures import (
+    create_cash_flow_sample,
+    create_malformed_cash_flow_sample,
+)
 
 __all__ = [
     'create_csv_file',
@@ -25,4 +29,6 @@ __all__ = [
     'create_ragged_sample',
     'create_balance_sheet_sample',
     'create_malformed_balance_sheet_sample',
+    'create_cash_flow_sample',
+    'create_malformed_cash_flow_sample',
 ]
