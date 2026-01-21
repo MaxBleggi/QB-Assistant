@@ -11,6 +11,7 @@ from .pl_model import PLModel
 from .parameters import ParameterModel
 from .budget_model import BudgetModel
 from .variance_model import VarianceModel
+from .ytd_model import YTDModel
 
 __all__ = [
     'DataModel',
@@ -20,4 +21,5 @@ __all__ = [
     'ParameterModel',
     'BudgetModel',
     'VarianceModel',
+    'YTDModel',
 ]
