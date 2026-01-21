@@ -1,0 +1,8 @@
+{
+  "parameters": {
+    "revenue_growth_rate": 0.05,
+    "budget_methodology": "Growth from Prior Year",
+    "category_growth_rates": {},
+    "expense_adjustment_factor": 1.0
+  }
+}

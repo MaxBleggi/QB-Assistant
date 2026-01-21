@@ -118,6 +118,18 @@ class ScenarioListForm(tk.Frame):
         )
         delete_btn.pack(pady=5)
 
+        # Back to Menu button
+        back_btn = tk.Button(
+            buttons_frame,
+            text="Back to Menu",
+            command=self.on_back_to_menu_clicked,
+            width=18,
+            bg='#9E9E9E',
+            fg='white',
+            font=('Arial', 10, 'bold')
+        )
+        back_btn.pack(pady=5)
+
         # Status message label
         self.status_label = tk.Label(
             self,
@@ -304,6 +316,13 @@ class ScenarioListForm(tk.Frame):
         except Exception as e:
             self.status_label.config(text=f"Delete failed: {str(e)}", fg='#F44336')
             messagebox.showerror("Error", f"Failed to delete scenario: {str(e)}")
+
+    def on_back_to_menu_clicked(self) -> None:
+        """
+        Handle Back to Menu button click - navigate to MainMenuForm.
+        """
+        from .main_menu_form import MainMenuForm
+        self.parent.show_form(MainMenuForm)
 
 
 class ScenarioCreateDialog(tk.Toplevel):

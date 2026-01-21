@@ -92,6 +92,18 @@ class SampleParamsForm(tk.Frame):
         )
         load_btn.pack(side=tk.LEFT, padx=10)
 
+        # Back to Menu button
+        back_btn = tk.Button(
+            buttons_frame,
+            text="Back to Menu",
+            command=self.on_back_to_menu_clicked,
+            width=20,
+            bg='#9E9E9E',
+            fg='white',
+            font=('Arial', 10, 'bold')
+        )
+        back_btn.pack(side=tk.LEFT, padx=10)
+
         # Status message label
         self.status_label = tk.Label(
             self,
@@ -173,3 +185,10 @@ class SampleParamsForm(tk.Frame):
             # File I/O or JSON parsing errors
             self.status_label.config(text="✗ Load failed", fg='#F44336')
             messagebox.showerror("Error", f"Failed to load parameters: {str(e)}")
+
+    def on_back_to_menu_clicked(self) -> None:
+        """
+        Handle Back to Menu button click - navigate to MainMenuForm.
+        """
+        from .main_menu_form import MainMenuForm
+        self.parent.show_form(MainMenuForm)

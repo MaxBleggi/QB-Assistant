@@ -1,0 +1,30 @@
+{
+  "parameters": {
+    "scenarios": [
+      {
+        "scenario_id": "f75689bb24da40f9b8658e8cd09a3f79",
+        "scenario_name": "test1",
+        "description": "Created from Expected template",
+        "created_date": "2026-01-20T21:15:48.215338",
+        "parameters": {
+          "revenue_growth_rates": {
+            "monthly_rate": 0.05,
+            "use_averaged": true
+          },
+          "expense_trend_adjustments": {
+            "cogs_trend": 0.04,
+            "opex_trend": 0.03
+          },
+          "cash_flow_timing_params": {
+            "collection_period_days": 45,
+            "payment_terms_days": 30
+          },
+          "major_cash_events": {
+            "planned_capex": [],
+            "debt_payments": []
+          }
+        }
+      }
+    ]
+  }
+}
