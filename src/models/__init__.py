@@ -9,6 +9,7 @@ from .balance_sheet import BalanceSheetModel
 from .cash_flow_model import CashFlowModel
 from .pl_model import PLModel
 from .parameters import ParameterModel
+from .budget_model import BudgetModel
 
 __all__ = [
     'DataModel',
@@ -16,4 +17,5 @@ __all__ = [
     'CashFlowModel',
     'PLModel',
     'ParameterModel',
+    'BudgetModel',
 ]

@@ -19,7 +19,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 
 ## Epics Breakdown
 
-### Epic 1: Data Ingestion & Parsing [STARTED]
+### Epic 1: Data Ingestion & Parsing [DONE]
 **Purpose**: Parse QuickBooks CSV/Excel exports and extract structured financial data from Balance Sheet, P&L, Cash Flow, and historical data files
 **Priority**: High
 **Estimated Sprints**: 5
@@ -28,7 +28,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [x] Sprint 1.2: Balance Sheet Parser
 - [x] Sprint 1.3: Profit & Loss Parser with Historical Data
 - [x] Sprint 1.4: Cash Flow Statement Parser
-- [ ] Sprint 1.5: Historical Data File Parser
+- [x] Sprint 1.5: Historical Data File Parser
 
 ### Epic 2: Core Metrics Calculation [DONE]
 **Purpose**: Calculate executive summary metrics (revenue, margins, cash flow) and KPIs with month-over-month and year-over-year comparisons
@@ -39,12 +39,12 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [x] Sprint 2.2: Cash Flow & Liquidity Metrics
 - [x] Sprint 2.3: Key Performance Indicators (KPIs)
 
-### Epic 3: Budget System [NOT STARTED]
+### Epic 3: Budget System [STARTED]
 **Purpose**: Calculate budgets from historical data plus user-tunable parameters, then generate Budget vs Actual YTD comparisons
 **Priority**: High
 **Estimated Sprints**: 3
 
-- [ ] Sprint 3.1: Budget Calculation Engine
+- [x] Sprint 3.1: Budget Calculation Engine
 - [ ] Sprint 3.2: Budget vs Actual Comparison
 - [ ] Sprint 3.3: Year-to-Date Aggregation
 

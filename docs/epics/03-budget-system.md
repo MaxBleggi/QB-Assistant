@@ -1,6 +1,6 @@
 # Epic 3: Budget System
 
-**Status**: NOT STARTED
+**Status**: STARTED
 **Priority**: High
 **Dependencies**: Epic 1 (requires historical data parsing), Epic 5 Sprint 5.1 (requires parameter input infrastructure)
 
@@ -27,7 +27,7 @@ Budget vs Actual analysis is a core deliverable for bookkeeping clients, helping
 
 ### Sprint 3.1: Budget Calculation Engine
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Build the budget calculator that takes historical financial data (from previous year) and applies user-tunable parameters to generate current year budgets. Support both revenue and expense budget categories. Implement parameter types including percentage-based growth rates (e.g., "increase revenue by 15%"), absolute adjustments (e.g., "add $5,000 to marketing budget"), and account-level overrides. Handle different budget methodologies: simple growth from prior year, average of historical periods, or zero-based for new accounts. Create data structures to store budget line items that mirror P&L structure.

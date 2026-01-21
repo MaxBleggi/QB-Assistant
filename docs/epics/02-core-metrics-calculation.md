@@ -1,6 +1,6 @@
 # Epic 2: Core Metrics Calculation
 
-**Status**: STARTED
+**Status**: DONE
 **Priority**: High
 **Dependencies**: Epic 1 (requires parsed financial data)
 

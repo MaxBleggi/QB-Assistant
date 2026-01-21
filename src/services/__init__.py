@@ -5,7 +5,9 @@ Services provide separation between GUI presentation layer and business logic,
 enabling independent testing and reusability.
 """
 from .budget_defaults import BudgetDefaultsService
+from .budget_calculator import BudgetCalculator
 
 __all__ = [
     'BudgetDefaultsService',
+    'BudgetCalculator',
 ]

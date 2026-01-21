@@ -1,6 +1,6 @@
 # Epic 1: Data Ingestion & Parsing
 
-**Status**: STARTED
+**Status**: DONE
 **Priority**: High
 **Dependencies**: None (foundation epic)
 
@@ -99,7 +99,7 @@ Implement a Cash Flow statement parser that extracts cash flow from operating ac
 
 ### Sprint 1.5: Historical Data File Parser
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Create a parser for the historical data file containing previous year's financial data needed for budget calculations. Design a flexible schema to handle year-over-year data structures, allowing for monthly or annual historical data. Implement account mapping logic to match historical accounts to current period accounts (account names/numbers may vary slightly year-over-year). Validate data completeness to ensure sufficient historical data exists for budget calculations.
