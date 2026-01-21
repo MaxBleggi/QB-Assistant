@@ -14,13 +14,13 @@ Configuration is saved per client, allowing different parameter sets for differe
 
 ## Success Criteria
 
-- [ ] GUI launches and runs reliably on macOS
-- [ ] Forms capture all parameters needed for budget calculation (Epic 3)
-- [ ] Forms capture all parameters needed for forecasting (Epic 4)
-- [ ] Supports multiple scenario creation and editing
-- [ ] Configuration saves to and loads from per-client files
-- [ ] Input validation prevents invalid parameter values
-- [ ] Interface is intuitive with clear labels and helpful defaults
+- [x] GUI launches and runs reliably on macOS
+- [x] Forms capture all parameters needed for budget calculation (Epic 3)
+- [x] Forms capture all parameters needed for forecasting (Epic 4)
+- [x] Supports multiple scenario creation and editing
+- [x] Configuration saves to and loads from per-client files
+- [x] Input validation prevents invalid parameter values
+- [x] Interface is intuitive with clear labels and helpful defaults
 
 ---
 
@@ -66,7 +66,7 @@ Build comprehensive GUI forms for budget parameters. Include input fields for re
 
 ### Sprint 5.3: Forecast Assumption Forms
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Create GUI forms for forecast assumptions including revenue growth rates (monthly or averaged), expense trend adjustments (by category), cash flow timing parameters (payment collection periods, payment terms), and major cash events (planned capital expenditures, debt payments). Implement scenario management UI allowing users to create, name, edit, and delete multiple forecast scenarios. Each scenario should have an independent set of forecast parameters. Provide scenario templates (e.g., "Conservative", "Expected", "Optimistic") with pre-set parameter values that users can customize. Include clear labeling to distinguish between scenario name, parameter categories, and individual parameters.

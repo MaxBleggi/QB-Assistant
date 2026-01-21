@@ -30,7 +30,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [x] Sprint 1.4: Cash Flow Statement Parser
 - [ ] Sprint 1.5: Historical Data File Parser
 
-### Epic 2: Core Metrics Calculation [STARTED]
+### Epic 2: Core Metrics Calculation [DONE]
 **Purpose**: Calculate executive summary metrics (revenue, margins, cash flow) and KPIs with month-over-month and year-over-year comparisons
 **Priority**: High
 **Estimated Sprints**: 3
@@ -58,14 +58,15 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [ ] Sprint 4.3: Scenario-Based Forecasting
 - [ ] Sprint 4.4: Forecast Validation & Reasonability Checks
 
-### Epic 5: Parameter Configuration Interface [NOT STARTED]
+### Epic 5: Parameter Configuration Interface [DONE]
 **Purpose**: Build simple GUI/form for users to set budget and forecast parameters, with configuration persistence per client
 **Priority**: Medium
 **Estimated Sprints**: 3
 
 - [x] Sprint 5.1: GUI Framework & Basic Parameter Input
 - [x] Sprint 5.2: Budget Parameter Forms
-- [ ] Sprint 5.3: Forecast Assumption Forms
+- [x] Sprint 5.3: Forecast Assumption Forms
+- [x] Sprint 5.4 (unplanned): Integrated previous sprints into one UI
 
 ### Epic 6: Report Generation & Output [NOT STARTED]
 **Purpose**: Format all calculated outputs into professional Excel-compatible spreadsheet reports
