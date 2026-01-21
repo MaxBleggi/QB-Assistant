@@ -46,7 +46,7 @@ Build the budget calculator that takes historical financial data (from previous 
 
 ### Sprint 3.2: Budget vs Actual Comparison
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Create the comparison engine that matches actual P&L line items to budgeted line items, handling potential naming variations between budget and actual. Calculate variances in both absolute terms (actual minus budget) and percentage terms ((actual - budget) / budget). Implement logic to flag significant deviations based on configurable thresholds (e.g., variances greater than 10% or $10,000). Handle favorable vs unfavorable variance direction (for revenue, actual > budget is favorable; for expenses, actual < budget is favorable). Include handling for budget line items without actuals and vice versa.

@@ -45,7 +45,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 **Estimated Sprints**: 3
 
 - [x] Sprint 3.1: Budget Calculation Engine
-- [ ] Sprint 3.2: Budget vs Actual Comparison
+- [x] Sprint 3.2: Budget vs Actual Comparison
 - [ ] Sprint 3.3: Year-to-Date Aggregation
 
 ### Epic 4: Forecasting Engine [NOT STARTED]

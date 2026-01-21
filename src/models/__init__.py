@@ -10,6 +10,7 @@ from .cash_flow_model import CashFlowModel
 from .pl_model import PLModel
 from .parameters import ParameterModel
 from .budget_model import BudgetModel
+from .variance_model import VarianceModel
 
 __all__ = [
     'DataModel',
@@ -18,4 +19,5 @@ __all__ = [
     'PLModel',
     'ParameterModel',
     'BudgetModel',
+    'VarianceModel',
 ]
