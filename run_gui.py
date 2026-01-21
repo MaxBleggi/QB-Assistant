@@ -8,10 +8,11 @@ from src.gui.app import App
 from src.gui.forms.sample_params_form import SampleParamsForm
 from src.gui.app import App
 from src.gui.forms.budget_params_form import BudgetParamsForm
+from src.gui.forms.scenario_list_form import ScenarioListForm
 
 def main():
     app = App('/home/max/projects/QB-Assistant')
-    app.show_form(BudgetParamsForm)
+    app.show_form(ScenarioListForm)
     app.mainloop()
 
 

@@ -37,19 +37,20 @@ class App(tk.Tk):
         # Track current form for lifecycle management
         self.current_form: Optional[tk.Frame] = None
 
-    def show_form(self, form_class: Type[tk.Frame]) -> None:
+    def show_form(self, form_class: Type[tk.Frame], **kwargs) -> None:
         """
         Switch active form by destroying current and creating new form.
 
         Args:
             form_class: Form class to instantiate and display (must accept parent as first arg)
+            **kwargs: Additional keyword arguments to pass to form constructor
         """
         # Destroy current form if exists
         if self.current_form is not None:
             self.current_form.destroy()
 
-        # Create new form instance
-        self.current_form = form_class(self)
+        # Create new form instance with optional kwargs
+        self.current_form = form_class(self, **kwargs)
 
         # Pack form to fill window
         self.current_form.pack(fill='both', expand=True)
