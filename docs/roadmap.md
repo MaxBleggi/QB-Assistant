@@ -49,13 +49,13 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [x] Sprint 3.2: Budget vs Actual Comparison
 - [x] Sprint 3.3: Year-to-Date Aggregation
 
-### Epic 4: Forecasting Engine [NOT STARTED]
+### Epic 4: Forecasting Engine [IN PROGRESS]
 **Purpose**: Generate variable-horizon forecasts (6-month or 12-month) for both Cash Flow and P&L with statistical confidence intervals, anomaly-aware baseline calculation, and scenario comparison for professional services bookkeeping clients
 **Priority**: High
 **Estimated Sprints**: 7
 
-- [ ] Sprint 4.1: Cash Flow Forecasting with Variable Horizon & Confidence Intervals
-- [ ] Sprint 4.2: Profit & Loss Forecasting with Variable Horizon & Confidence Intervals
+- [x] Sprint 4.1: Cash Flow Forecasting with Variable Horizon & Confidence Intervals
+- [x] Sprint 4.2: Profit & Loss Forecasting with Variable Horizon & Confidence Intervals
 - [ ] Sprint 4.3: Scenario-Based Forecasting with Confidence Bands
 - [ ] Sprint 4.4: Forecast Validation & Reasonability Checks
 - [ ] Sprint 4.5: Statistical Volatility Analysis & Percentile Calculation

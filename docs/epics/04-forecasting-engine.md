@@ -1,6 +1,6 @@
 # Epic 4: Forecasting Engine
 
-**Status**: NOT STARTED
+**Status**: IN PROGRESS
 **Priority**: High
 **Dependencies**: Epic 1 (requires parsed financial data), Epic 5 Sprint 5.5 (requires anomaly annotation UI), Epic 5 Sprint 5.7 (requires variable horizon selector)
 
@@ -34,7 +34,7 @@ Supports multiple scenarios (Conservative, Expected, Optimistic) with independen
 
 ### Sprint 4.1: Cash Flow Forecasting with Variable Horizon & Confidence Intervals
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Build cash flow forecasting algorithm that generates monthly projections for variable horizons (6-month default, 12-month for expansion planning). Use Simple Growth Rate Projection with compound monthly growth formula: `projected[M] = baseline * (1 + monthly_rate)^M`. Calculate baseline using median of historical data (outlier-robust) with exclusion of user-annotated anomalous periods. Generate confidence intervals using historical percentiles method (10th and 90th percentiles for 80% confidence). Project three activity sections independently: Operating Activities (with collection timing lag), Investing Activities (with major capex events), and Financing Activities (with debt payment events). Calculate beginning cash (from previous month's ending cash) and ending cash (beginning + all activities) for each forecast month. Detect and flag negative cash positions as liquidity warnings. Support ForecastScenario parameters: monthly_rate, collection_period_days, planned_capex, debt_payments. Return CashFlowForecastModel with projected values, lower/upper confidence bounds, and metadata (confidence level, excluded periods, warnings).
@@ -63,7 +63,7 @@ Build cash flow forecasting algorithm that generates monthly projections for var
 
 ### Sprint 4.2: Profit & Loss Forecasting with Variable Horizon & Confidence Intervals
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Implement Profit & Loss forecasting for revenue and expenses over variable horizons (6 or 12 months). Use compound growth projection with category-specific growth rates: revenue growth, COGS trend, OpEx trend from ForecastScenario parameters. Calculate baseline using median of historical P&L data with anomaly exclusion (same periods excluded as in Sprint 4.1). Generate confidence intervals using historical percentiles method for revenue and expense volatility. Support both top-down forecasting (apply single growth rate to total revenue) and category-specific forecasting (revenue, COGS, OpEx grow independently). Calculate forecasted gross margin, operating expenses, EBITDA, and net income for each month. Handle expense categories appropriately: some grow with revenue (variable costs like COGS), others are relatively fixed (rent, insurance), others have custom growth rates (OpEx trend). Return PLForecastModel with monthly projections, confidence bounds, and calculated margins.

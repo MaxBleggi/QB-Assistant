@@ -9,6 +9,7 @@ from .balance_sheet import BalanceSheetModel
 from .cash_flow_forecast_model import CashFlowForecastModel
 from .cash_flow_model import CashFlowModel
 from .pl_model import PLModel
+from .pl_forecast_model import PLForecastModel
 from .parameters import ParameterModel
 from .anomaly_annotation import AnomalyAnnotationModel
 from .budget_model import BudgetModel
@@ -21,6 +22,7 @@ __all__ = [
     'CashFlowForecastModel',
     'CashFlowModel',
     'PLModel',
+    'PLForecastModel',
     'ParameterModel',
     'AnomalyAnnotationModel',
     'BudgetModel',
