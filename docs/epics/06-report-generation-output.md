@@ -68,18 +68,42 @@ Build report generators for Executive Summary and KPI Dashboard sheets. Executiv
 **Status**: [ ] Not Started
 
 **Description**:
-Implement Budget vs Actual and Forecast report generators. Budget vs Actual table should show line items from P&L with columns for Budget, Actual, Variance ($), and Variance (%), using conditional formatting to highlight significant variances (red for unfavorable >10%, yellow for moderate 5-10%). Include subtotals for revenue, expenses, and net income. Forecast sheets (separate sheets for Cash Flow and P&L) should display 6-month projections with monthly columns showing month-by-month detail. If multiple scenarios exist, display them side-by-side for comparison with clear scenario labels. Include summary rows for totals and key metrics (ending cash, net income, margins).
+Implement Budget vs Actual and Forecast report generators. Budget vs Actual table should show line items from P&L with columns for Budget, Actual, Variance ($), and Variance (%), using conditional formatting to highlight significant variances (red for unfavorable >10%, yellow for moderate 5-10%). Include subtotals for revenue, expenses, and net income. Forecast sheets (separate sheets for Cash Flow and P&L) should display variable-horizon projections (6-month OR 12-month based on Epic 5 Sprint 5.7 setting) with monthly columns showing month-by-month detail. Display confidence intervals as three rows per metric: Lower Bound (10th percentile), Projected (median), Upper Bound (90th percentile). If multiple scenarios exist, display them side-by-side for comparison with clear scenario labels (all using same horizon per uniform policy). Include summary rows for totals and key metrics (ending cash, net income, margins).
 
 **Acceptance Criteria**:
 - Budget vs Actual table shows all line items with variance highlighting
-- Forecast sheets display 6-month monthly projections for Cash Flow and P&L
+- Forecast sheets display 6-month OR 12-month projections (dynamic column count based on Epic 5 Sprint 5.7 horizon setting)
+- Confidence intervals displayed as three rows per metric (Lower Bound / Projected / Upper Bound)
 - Multiple scenarios display side-by-side when present with clear labels
+- All scenarios use same horizon (uniform policy - no mixing 6 and 12 month)
 - Conditional formatting highlights significant variances and concerning trends
 - Summary rows provide totals and key calculated metrics
 
-**Estimated Complexity**: Standard
+**Estimated Complexity**: Complex
 
-**Notes**: Variance highlighting thresholds (10%, 5%) should match those from Epic 3 Sprint 3.2. Consider adding a summary row at the top of forecast sheets showing just the key totals (ending cash, net income) for quick scanning.
+**Notes**: Variance highlighting thresholds (10%, 5%) should match those from Epic 3 Sprint 3.2. Three-row confidence interval display (Option A from sprint_changes.md) is clearest for non-technical business owners. Complexity increased to Complex due to variable column count and confidence interval formatting.
+
+---
+
+### Sprint 6.4: Report Metadata & Explanatory Documentation
+
+**Status**: [ ] Not Started
+
+**Description**:
+Add report cover page and methodology documentation to help business owners understand how forecasts were calculated. Include report metadata (generation date, horizon selected, scenarios included), methodology summary (Simple Growth Rate Projection, historical percentiles confidence intervals), complete assumptions documentation (growth rates applied, collection periods, major events), excluded periods with reasons (anomalies annotated in Epic 5 Sprint 5.5), and confidence interval interpretation guide. Provide context and transparency so clients can trust and explain the forecast numbers.
+
+**Acceptance Criteria**:
+- Cover page sheet with report metadata (date generated, horizon, client name, scenarios included)
+- Methodology summary explaining Simple Growth Rate Projection and confidence interval calculation method
+- Assumptions section listing all parameters applied (growth rates, timing adjustments, major events, external events)
+- Excluded periods section showing anomaly annotations with reasons (from Epic 5 Sprint 5.5)
+- Confidence interval interpretation guide ("80% confidence means we expect actual values to fall between Lower and Upper bounds 80% of the time")
+- Footnotes explaining key concepts for non-technical business owners
+- Professional formatting consistent with other report sheets
+
+**Estimated Complexity**: Simple
+
+**Notes**: This addresses the client workflow where business owners ask "How did you calculate this?" Transparency builds trust and helps bookkeepers explain forecasts to their clients.
 
 ---
 

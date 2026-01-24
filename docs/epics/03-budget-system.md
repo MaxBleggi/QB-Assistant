@@ -1,6 +1,6 @@
 # Epic 3: Budget System
 
-**Status**: STARTED
+**Status**: DONE
 **Priority**: High
 **Dependencies**: Epic 1 (requires historical data parsing), Epic 5 Sprint 5.1 (requires parameter input infrastructure)
 
@@ -14,12 +14,12 @@ Budget vs Actual analysis is a core deliverable for bookkeeping clients, helping
 
 ## Success Criteria
 
-- [ ] Generates accurate line-item budgets from historical data and user parameters
-- [ ] Correctly matches budget line items to actual P&L line items
-- [ ] Calculates variances in both absolute (dollar) and percentage terms
-- [ ] Aggregates monthly data to year-to-date correctly
-- [ ] Handles partial-year scenarios (clients mid-fiscal-year)
-- [ ] Flags significant variances for attention
+- [x] Generates accurate line-item budgets from historical data and user parameters
+- [x] Correctly matches budget line items to actual P&L line items
+- [x] Calculates variances in both absolute (dollar) and percentage terms
+- [x] Aggregates monthly data to year-to-date correctly
+- [x] Handles partial-year scenarios (clients mid-fiscal-year)
+- [x] Flags significant variances for attention
 
 ---
 
@@ -65,7 +65,7 @@ Create the comparison engine that matches actual P&L line items to budgeted line
 
 ### Sprint 3.3: Year-to-Date Aggregation
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Implement year-to-date (YTD) aggregation logic for both budget and actual data. Accumulate monthly budget and actual amounts from fiscal year start through current month, calculate cumulative variances, and compute YTD percentage of budget. Support partial-year analysis for clients who start using QB-Assistant mid-fiscal-year (pro-rate annual budgets or use remaining months only). Handle fiscal years that don't align with calendar years. Provide month-by-month accumulation detail in addition to total YTD figures.
