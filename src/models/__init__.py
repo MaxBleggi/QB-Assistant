@@ -6,6 +6,7 @@ Provides base DataModel wrapper and will include document-specific models
 """
 from .base import DataModel
 from .balance_sheet import BalanceSheetModel
+from .cash_flow_forecast_model import CashFlowForecastModel
 from .cash_flow_model import CashFlowModel
 from .pl_model import PLModel
 from .parameters import ParameterModel
@@ -17,6 +18,7 @@ from .ytd_model import YTDModel
 __all__ = [
     'DataModel',
     'BalanceSheetModel',
+    'CashFlowForecastModel',
     'CashFlowModel',
     'PLModel',
     'ParameterModel',

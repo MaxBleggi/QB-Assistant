@@ -7,6 +7,7 @@ enabling independent testing and reusability.
 from .budget_defaults import BudgetDefaultsService
 from .budget_calculator import BudgetCalculator
 from .budget_variance_calculator import BudgetVarianceCalculator
+from .cash_flow_forecast_calculator import CashFlowForecastCalculator
 from .ytd_aggregator import YTDAggregator
 from .anomaly_detector import AnomalyDetector
 from .time_series_visualizer import TimeSeriesVisualizer
@@ -15,6 +16,7 @@ __all__ = [
     'BudgetDefaultsService',
     'BudgetCalculator',
     'BudgetVarianceCalculator',
+    'CashFlowForecastCalculator',
     'YTDAggregator',
     'AnomalyDetector',
     'TimeSeriesVisualizer',
