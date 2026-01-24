@@ -36,6 +36,9 @@ class ForecastTemplateService:
             'major_cash_events': {
                 'planned_capex': [],      # No major capital expenditures
                 'debt_payments': []       # No debt payments planned
+            },
+            'external_events': {
+                'events': []              # No external economic events by default
             }
         },
         'Expected': {
@@ -54,6 +57,9 @@ class ForecastTemplateService:
             'major_cash_events': {
                 'planned_capex': [],      # No major capital expenditures
                 'debt_payments': []       # No debt payments planned
+            },
+            'external_events': {
+                'events': []              # No external economic events by default
             }
         },
         'Optimistic': {
@@ -72,6 +78,9 @@ class ForecastTemplateService:
             'major_cash_events': {
                 'planned_capex': [],      # No major capital expenditures
                 'debt_payments': []       # No debt payments planned
+            },
+            'external_events': {
+                'events': []              # No external economic events by default
             }
         }
     }

@@ -9,7 +9,7 @@ import tkinter as tk
 from tkinter import messagebox
 from typing import Dict, Any
 
-from ..components.form_fields import NumericEntry, LabeledEntry
+from ..components.form_fields import NumericEntry, LabeledEntry, LabeledDropdown
 from ...models.forecast_scenario import ForecastScenariosCollection
 
 
@@ -79,6 +79,7 @@ class ForecastParamsForm(tk.Frame):
             self._create_expense_section(scrollable_frame, params.get('expense_trend_adjustments', {}))
             self._create_cash_flow_section(scrollable_frame, params.get('cash_flow_timing_params', {}))
             self._create_major_events_section(scrollable_frame, params.get('major_cash_events', {}))
+            self._create_external_events_section(scrollable_frame, params.get('external_events', {}))
 
         # Create buttons container
         buttons_frame = tk.Frame(self)
@@ -328,6 +329,233 @@ class ForecastParamsForm(tk.Frame):
         )
         help_text.pack(pady=2)
 
+    def _create_external_events_section(self, parent: tk.Frame, params: Dict[str, Any]) -> None:
+        """
+        Create external economic events section with list-based UI for add/delete operations.
+
+        Args:
+            parent: Parent frame to pack section into
+            params: Dictionary with external events parameter values
+        """
+        events_section = tk.LabelFrame(
+            parent,
+            text="External Economic Events",
+            font=('Arial', 12, 'bold'),
+            padx=10,
+            pady=10
+        )
+        events_section.pack(fill=tk.X, expand=False, pady=10)
+
+        # Help text to distinguish from major_cash_events
+        help_text = tk.Label(
+            events_section,
+            text="(Forward-looking external events: tariffs, policy changes, economic shocks - distinct from internal major cash events)",
+            font=('Arial', 9, 'italic'),
+            fg='#666',
+            wraplength=600,
+            justify=tk.LEFT
+        )
+        help_text.pack(pady=(0, 10))
+
+        # Form fields frame
+        form_frame = tk.Frame(events_section)
+        form_frame.pack(fill=tk.X, pady=5)
+
+        # Month field (1-12)
+        self.external_event_month_field = NumericEntry(
+            form_frame,
+            label_text="Month (1-12):",
+            default_value="",
+            value_type=int
+        )
+        self.external_event_month_field.pack(pady=5)
+
+        # Impact type dropdown
+        impact_type_options = [
+            'Revenue Reduction',
+            'Revenue Increase',
+            'Cost Increase',
+            'Cost Reduction',
+            'Other'
+        ]
+        self.external_event_impact_type_field = LabeledDropdown(
+            form_frame,
+            label_text="Impact Type:",
+            options=impact_type_options,
+            default_value='Revenue Reduction'
+        )
+        self.external_event_impact_type_field.pack(pady=5)
+
+        # Magnitude field (percentage)
+        self.external_event_magnitude_field = NumericEntry(
+            form_frame,
+            label_text="Magnitude (%):",
+            default_value="",
+            value_type=float
+        )
+        self.external_event_magnitude_field.pack(pady=5)
+
+        # Description field
+        self.external_event_description_field = LabeledEntry(
+            form_frame,
+            label_text="Description:",
+            default_value=""
+        )
+        self.external_event_description_field.pack(pady=5)
+
+        # Buttons frame
+        buttons_frame = tk.Frame(events_section)
+        buttons_frame.pack(pady=10)
+
+        # Add button
+        add_btn = tk.Button(
+            buttons_frame,
+            text="Add Event",
+            command=self._on_add_external_event_clicked,
+            width=15,
+            bg='#4CAF50',
+            fg='white',
+            font=('Arial', 9, 'bold')
+        )
+        add_btn.pack(side=tk.LEFT, padx=5)
+
+        # Delete button
+        delete_btn = tk.Button(
+            buttons_frame,
+            text="Delete Selected",
+            command=self._on_delete_external_event_clicked,
+            width=15,
+            bg='#F44336',
+            fg='white',
+            font=('Arial', 9, 'bold')
+        )
+        delete_btn.pack(side=tk.LEFT, padx=5)
+
+        # Listbox for saved events
+        list_frame = tk.Frame(events_section)
+        list_frame.pack(fill=tk.X, pady=10)
+
+        scrollbar = tk.Scrollbar(list_frame)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        self.external_events_listbox = tk.Listbox(
+            list_frame,
+            width=80,
+            height=6,
+            yscrollcommand=scrollbar.set,
+            font=('Courier', 9)
+        )
+        self.external_events_listbox.pack(side=tk.LEFT, fill=tk.BOTH)
+        scrollbar.config(command=self.external_events_listbox.yview)
+
+        # Initialize events list storage
+        self.external_events_list = []
+
+        # Load existing events from params
+        existing_events = params.get('events', [])
+        for event in existing_events:
+            self.external_events_list.append(event)
+
+        # Refresh display
+        self._refresh_external_events_listbox()
+
+    def _on_add_external_event_clicked(self) -> None:
+        """
+        Handle add external event button click.
+
+        Validates fields, appends to events list, refreshes display, and clears form.
+        """
+        try:
+            # Get and validate month (1-12)
+            month = self.external_event_month_field.get_value()
+            if month < 1 or month > 12:
+                messagebox.showerror(
+                    "Invalid Input",
+                    "Month must be between 1 and 12 (forecast periods)."
+                )
+                return
+
+            # Get other fields
+            impact_type = self.external_event_impact_type_field.get_value()
+            magnitude = self.external_event_magnitude_field.get_value()
+            description = self.external_event_description_field.get_value()
+
+            if not description.strip():
+                messagebox.showerror(
+                    "Invalid Input",
+                    "Description cannot be empty."
+                )
+                return
+
+            # Create event dict
+            event = {
+                'month': month,
+                'impact_type': impact_type,
+                'magnitude': magnitude,
+                'description': description
+            }
+
+            # Add to list
+            self.external_events_list.append(event)
+
+            # Refresh listbox
+            self._refresh_external_events_listbox()
+
+            # Clear form fields
+            self.external_event_month_field.set_value("")
+            self.external_event_magnitude_field.set_value("")
+            self.external_event_description_field.set_value("")
+
+        except ValueError as e:
+            messagebox.showerror("Invalid Input", str(e))
+
+    def _on_delete_external_event_clicked(self) -> None:
+        """
+        Handle delete external event button click.
+
+        Removes selected event from list after confirmation and refreshes display.
+        """
+        # Get selected index
+        selection = self.external_events_listbox.curselection()
+        if not selection:
+            messagebox.showwarning("No Selection", "Please select an event to delete.")
+            return
+
+        # Confirm deletion
+        confirm = messagebox.askyesno(
+            "Confirm Delete",
+            "Are you sure you want to delete this event?"
+        )
+        if not confirm:
+            return
+
+        # Remove from list
+        index = selection[0]
+        del self.external_events_list[index]
+
+        # Refresh listbox
+        self._refresh_external_events_listbox()
+
+    def _refresh_external_events_listbox(self) -> None:
+        """
+        Refresh external events listbox with current events list.
+
+        Formats each event as: 'Month X | impact_type | magnitude% | description'
+        """
+        # Clear listbox
+        self.external_events_listbox.delete(0, tk.END)
+
+        # Add each event
+        for event in self.external_events_list:
+            month = event['month']
+            impact_type = event['impact_type']
+            magnitude = event['magnitude']
+            description = event['description']
+
+            # Format display string
+            display_text = f"Month {month} | {impact_type} | {magnitude}% | {description}"
+            self.external_events_listbox.insert(tk.END, display_text)
+
     def on_save_clicked(self) -> None:
         """
         Handle save button click - collect field values and save to collection.
@@ -377,11 +605,17 @@ class ForecastParamsForm(tk.Frame):
                 'debt_payments': debt_payments
             }
 
+            # Collect external events section values
+            external_events_params = {
+                'events': self.external_events_list
+            }
+
             # Update scenario parameters
             scenario.set_parameter('revenue_growth_rates', revenue_params)
             scenario.set_parameter('expense_trend_adjustments', expense_params)
             scenario.set_parameter('cash_flow_timing_params', cash_flow_params)
             scenario.set_parameter('major_cash_events', major_events_params)
+            scenario.set_parameter('external_events', external_events_params)
 
             # Save collection to file
             config_mgr.save_config(self.scenarios_collection, self.CONFIG_FILEPATH)
