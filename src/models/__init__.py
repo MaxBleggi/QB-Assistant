@@ -15,17 +15,19 @@ from .anomaly_annotation import AnomalyAnnotationModel
 from .budget_model import BudgetModel
 from .variance_model import VarianceModel
 from .ytd_model import YTDModel
+from .multi_scenario_forecast_result import MultiScenarioForecastResult
 
 __all__ = [
-    'DataModel',
+    'AnomalyAnnotationModel',
     'BalanceSheetModel',
+    'BudgetModel',
     'CashFlowForecastModel',
     'CashFlowModel',
-    'PLModel',
+    'DataModel',
+    'MultiScenarioForecastResult',
     'PLForecastModel',
+    'PLModel',
     'ParameterModel',
-    'AnomalyAnnotationModel',
-    'BudgetModel',
     'VarianceModel',
     'YTDModel',
 ]

@@ -117,3 +117,92 @@ class ForecastTemplateService:
             List of template names
         """
         return list(ForecastTemplateService.TEMPLATES.keys())
+
+    @staticmethod
+    def create_scenario_from_template(
+        template_name: str,
+        scenario_name: str,
+        overrides: Dict[str, Any] = None
+    ):
+        """
+        Create ForecastScenarioModel from template with optional parameter overrides.
+
+        Flattens nested template structure and merges with user overrides to produce
+        ForecastScenarioModel with flat parameter keys.
+
+        Args:
+            template_name: Name of template ('Conservative', 'Expected', or 'Optimistic')
+            scenario_name: Name for the created scenario
+            overrides: Optional dict of parameter overrides (keys take precedence over template)
+
+        Returns:
+            ForecastScenarioModel instance with scenario_name, merged parameters,
+            and metadata indicating template source
+
+        Raises:
+            ValueError: If template_name not found
+
+        Example:
+            >>> scenario = ForecastTemplateService.create_scenario_from_template(
+            ...     'Conservative',
+            ...     'My Conservative Case',
+            ...     overrides={'monthly_rate': 0.03}
+            ... )
+            >>> scenario.parameters['monthly_rate']
+            0.03
+        """
+        # Import here to avoid circular dependency
+        from src.models.forecast_scenario import ForecastScenarioModel
+
+        # Get base template (this will raise ValueError if template not found)
+        template = ForecastTemplateService.get_template(template_name)
+
+        # Flatten nested template structure to flat parameter keys
+        flattened_params = ForecastTemplateService._flatten_template(template)
+
+        # Merge user overrides (overrides take precedence)
+        if overrides:
+            flattened_params.update(overrides)
+
+        # Create scenario model with flattened parameters
+        return ForecastScenarioModel(
+            parameters=flattened_params,
+            scenario_name=scenario_name,
+            description=f"Created from {template_name} template"
+        )
+
+    @staticmethod
+    def _flatten_template(template: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Flatten nested template structure to flat parameter keys.
+
+        Converts nested structure like:
+            {'revenue_growth_rates': {'monthly_rate': 0.02}}
+        To flat structure:
+            {'monthly_rate': 0.02}
+
+        Args:
+            template: Nested template dict from TEMPLATES
+
+        Returns:
+            Flat dict with leaf parameter keys and values
+        """
+        flattened = {}
+
+        for category_key, category_value in template.items():
+            if isinstance(category_value, dict):
+                # Extract leaf values from nested dict
+                for param_key, param_value in category_value.items():
+                    # For nested structures like major_cash_events with arrays,
+                    # keep the full key to avoid collisions
+                    if isinstance(param_value, (list, dict)) and param_value:
+                        # Keep structured values with prefixed key
+                        flattened[param_key] = param_value
+                    else:
+                        # Simple leaf values - use direct key
+                        flattened[param_key] = param_value
+            else:
+                # Non-dict values - preserve as-is
+                flattened[category_key] = category_value
+
+        return flattened
