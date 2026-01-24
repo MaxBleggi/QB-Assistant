@@ -71,7 +71,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [x] Sprint 5.2: Budget Parameter Forms
 - [x] Sprint 5.3: Forecast Assumption Forms
 - [x] Sprint 5.4 (unplanned): Integrated previous sprints into one UI
-- [ ] Sprint 5.5: Historical Data Anomaly Annotation UI
+- [x] Sprint 5.5: Historical Data Anomaly Annotation UI
 - [ ] Sprint 5.6: External Economic Event Parameters
 - [ ] Sprint 5.7: Variable Forecast Horizon Selector
 

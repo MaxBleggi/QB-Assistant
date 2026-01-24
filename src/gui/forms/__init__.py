@@ -8,6 +8,7 @@ from .budget_params_form import BudgetParamsForm
 from .scenario_list_form import ScenarioListForm
 from .forecast_params_form import ForecastParamsForm
 from .anomaly_review_form import AnomalyReviewForm
+from .anomaly_annotation_form import AnomalyAnnotationForm
 
 __all__ = [
     'SampleParamsForm',
@@ -15,4 +16,5 @@ __all__ = [
     'ScenarioListForm',
     'ForecastParamsForm',
     'AnomalyReviewForm',
+    'AnomalyAnnotationForm',
 ]

@@ -131,7 +131,7 @@ class MainMenuForm(tk.Frame):
 
     def on_anomaly_review_clicked(self) -> None:
         """
-        Handle Historical Data Anomaly Review button click - navigate to AnomalyReviewForm.
+        Handle Historical Data Anomaly Review button click - navigate to AnomalyAnnotationForm.
         """
-        from .anomaly_review_form import AnomalyReviewForm
-        self.parent.show_form(AnomalyReviewForm)
+        from .anomaly_annotation_form import AnomalyAnnotationForm
+        self.parent.show_form(AnomalyAnnotationForm)

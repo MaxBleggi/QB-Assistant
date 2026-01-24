@@ -85,7 +85,7 @@ Create GUI forms for forecast assumptions including revenue growth rates (monthl
 
 ### Sprint 5.5: Historical Data Anomaly Annotation UI
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Build GUI for users to manually annotate anomalous date ranges in historical data. Allow marking periods affected by external events (government shutdowns, tariffs, one-time contracts) with exclusion rules for baseline and volatility calculations. Integrate with Epic 1 Sprint 1.6 anomaly detection suggestions to pre-populate potential anomalies for user confirmation. Provide fields for start_date, end_date, reason/description, and exclude_from options (baseline only, volatility only, or both). Display annotated periods visually in historical data view to make it clear which periods are excluded from calculations.
