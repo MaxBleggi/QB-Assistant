@@ -87,6 +87,18 @@ class MainMenuForm(tk.Frame):
         )
         scenarios_btn.pack(pady=10)
 
+        # Historical Data Anomaly Review button
+        anomaly_btn = tk.Button(
+            nav_frame,
+            text="Historical Data Anomaly Review",
+            command=self.on_anomaly_review_clicked,
+            width=30,
+            bg='#4CAF50',
+            fg='white',
+            font=('Arial', 10, 'bold')
+        )
+        anomaly_btn.pack(pady=10)
+
         # Status message label
         self.status_label = tk.Label(
             self,
@@ -116,3 +128,10 @@ class MainMenuForm(tk.Frame):
         """
         from .scenario_list_form import ScenarioListForm
         self.parent.show_form(ScenarioListForm)
+
+    def on_anomaly_review_clicked(self) -> None:
+        """
+        Handle Historical Data Anomaly Review button click - navigate to AnomalyReviewForm.
+        """
+        from .anomaly_review_form import AnomalyReviewForm
+        self.parent.show_form(AnomalyReviewForm)

@@ -7,6 +7,9 @@ pandas>=2.0.0              # Core DataFrame operations and CSV/Excel handling
 # Excel file support for pandas
 openpyxl>=3.0.0           # Modern Excel (.xlsx) file support
 
+# Visualization
+matplotlib>=3.5.0         # Time-series charting and anomaly visualization
+
 # Testing framework
 pytest>=7.0.0             # Unit testing framework
 pytest-cov                # Test coverage reporting

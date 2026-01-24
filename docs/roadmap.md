@@ -19,7 +19,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 
 ## Epics Breakdown
 
-### Epic 1: Data Ingestion & Parsing [IN PROGRESS]
+### Epic 1: Data Ingestion & Parsing [DONE]
 **Purpose**: Parse QuickBooks CSV/Excel exports and extract structured financial data from Balance Sheet, P&L, Cash Flow, and historical data files. Includes visualization and anomaly detection for identifying irregular historical patterns.
 **Priority**: High
 **Estimated Sprints**: 6
@@ -29,7 +29,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [x] Sprint 1.3: Profit & Loss Parser with Historical Data
 - [x] Sprint 1.4: Cash Flow Statement Parser
 - [x] Sprint 1.5: Historical Data File Parser
-- [ ] Sprint 1.6: Historical Data Visualization & Anomaly Detection
+- [x] Sprint 1.6: Historical Data Visualization & Anomaly Detection
 
 ### Epic 2: Core Metrics Calculation [DONE]
 **Purpose**: Calculate executive summary metrics (revenue, margins, cash flow) and KPIs with month-over-month and year-over-year comparisons

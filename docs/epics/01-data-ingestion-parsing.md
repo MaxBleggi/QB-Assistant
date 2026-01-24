@@ -117,7 +117,7 @@ Create a parser for the historical data file containing previous year's financia
 
 ### Sprint 1.6: Historical Data Visualization & Anomaly Detection
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Create visualization tools to chart historical cash flow and P&L trends over time, enabling users to visually spot anomalies and irregular patterns. Implement automated anomaly detection using statistical methods (e.g., values >2σ from mean) to flag periods that deviate significantly from typical patterns. Build a visual review UI that displays both the trend charts and flagged anomalies, allowing users to confirm or dismiss detected anomalies. Feed confirmed anomalies to Epic 5 Sprint 5.5 (Anomaly Annotation UI) for exclusion from baseline/volatility calculations.
