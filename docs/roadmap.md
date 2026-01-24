@@ -62,7 +62,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [ ] Sprint 4.6: Anomaly Exclusion Logic & Median-Based Statistics
 - [ ] Sprint 4.7: Budget vs Forecast Variance Analysis
 
-### Epic 5: Parameter Configuration Interface [IN PROGRESS]
+### Epic 5: Parameter Configuration Interface [DONE]
 **Purpose**: Build simple GUI/form for users to set budget and forecast parameters, annotate historical anomalies, configure variable forecast horizons, and define external economic events, with configuration persistence per client
 **Priority**: Medium
 **Estimated Sprints**: 7
@@ -72,8 +72,8 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [x] Sprint 5.3: Forecast Assumption Forms
 - [x] Sprint 5.4 (unplanned): Integrated previous sprints into one UI
 - [x] Sprint 5.5: Historical Data Anomaly Annotation UI
-- [ ] Sprint 5.6: External Economic Event Parameters
-- [ ] Sprint 5.7: Variable Forecast Horizon Selector
+- [x] Sprint 5.6: External Economic Event Parameters
+- [x] Sprint 5.7: Variable Forecast Horizon Selector
 
 ### Epic 6: Report Generation & Output [NOT STARTED]
 **Purpose**: Format all calculated outputs into professional Excel-compatible spreadsheet reports with variable-horizon forecasts, confidence intervals, and explanatory documentation

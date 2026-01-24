@@ -37,6 +37,9 @@ class ConfigManager:
 
         Args:
             filepath: Requested file path (relative or absolute)
+                     Can be either:
+                     - 'filename.json' -> resolves to config/filename.json
+                     - 'config/filename.json' -> also resolves to config/filename.json
 
         Returns:
             Validated absolute Path object
@@ -46,9 +49,14 @@ class ConfigManager:
         """
         requested_path = Path(filepath)
 
-        # Convert to absolute path relative to config directory if relative
+        # Convert to absolute path
         if not requested_path.is_absolute():
-            full_path = (self.config_dir / requested_path).resolve()
+            # If path starts with 'config/', resolve relative to project_root
+            # Otherwise resolve relative to config_dir for backward compatibility
+            if str(filepath).startswith('config/') or str(filepath).startswith('config\\'):
+                full_path = (self.project_root / requested_path).resolve()
+            else:
+                full_path = (self.config_dir / requested_path).resolve()
         else:
             full_path = requested_path.resolve()
 
@@ -92,34 +100,42 @@ class ConfigManager:
                 f"Cannot write to {filepath}: permission denied"
             )
 
-    def load_config(self, filepath: str) -> ParameterModel:
+    def load_config(self, filepath: str, model_class=None) -> ParameterModel:
         """
-        Load ParameterModel from JSON configuration file.
+        Load ParameterModel (or subclass) from JSON configuration file.
 
         Args:
             filepath: Path to JSON file (relative to config directory or absolute within config)
+            model_class: Model class to instantiate (default: ParameterModel). Must have from_dict classmethod.
 
         Returns:
-            ParameterModel instance with loaded parameters
+            ParameterModel instance (or subclass) with loaded parameters
 
         Raises:
             ValueError: If filepath is invalid or outside config directory
             JSONDecodeError: If file contains invalid JSON syntax
             PermissionError: If insufficient permissions to read file
+            Exception: If model_class.from_dict fails
         """
+        # Default to ParameterModel for backward compatibility
+        if model_class is None:
+            model_class = ParameterModel
+
         validated_path = self._validate_filepath(filepath)
 
-        # Handle missing file - return default empty model
+        # Handle missing file - create default, save it, and return
         if not validated_path.exists():
-            return ParameterModel(parameters={})
+            default_instance = model_class()
+            self.save_config(default_instance, filepath)
+            return default_instance
 
         # Read and parse JSON with context manager
         try:
             with open(validated_path, 'r') as f:
                 data = json.load(f)
 
-            # Reconstruct ParameterModel from dict
-            return ParameterModel.from_dict(data)
+            # Reconstruct model from dict using provided model_class
+            return model_class.from_dict(data)
 
         except JSONDecodeError as e:
             # Re-raise with enhanced error message including file location
@@ -132,3 +148,8 @@ class ConfigManager:
             raise PermissionError(
                 f"Cannot read {filepath}: permission denied"
             )
+        except Exception as e:
+            # Wrap model_class.from_dict errors with context
+            raise Exception(
+                f"Failed to load config from {filepath} using {model_class.__name__}: {str(e)}"
+            ) from e

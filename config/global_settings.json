@@ -1,0 +1,5 @@
+{
+  "parameters": {
+    "forecast_horizon": 6
+  }
+}

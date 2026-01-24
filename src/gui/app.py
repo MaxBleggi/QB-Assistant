@@ -37,6 +37,9 @@ class App(tk.Tk):
         # Track current form for lifecycle management
         self.current_form: Optional[tk.Frame] = None
 
+        # Cache for global configuration (lazy loaded)
+        self._global_config = None
+
     def show_form(self, form_class: Type[tk.Frame], **kwargs) -> None:
         """
         Switch active form by destroying current and creating new form.
@@ -63,6 +66,39 @@ class App(tk.Tk):
             ConfigManager for parameter persistence
         """
         return self._config_manager
+
+    def get_global_config(self):
+        """
+        Get global configuration singleton.
+
+        Loads GlobalConfigModel from config/global_settings.json on first call,
+        returns cached instance on subsequent calls. Creates default config
+        with 6-month forecast horizon if file does not exist.
+
+        Returns:
+            GlobalConfigModel instance with global application settings
+        """
+        # Return cached instance if available
+        if self._global_config is not None:
+            return self._global_config
+
+        # Import here to avoid circular dependency
+        from ..models.global_config import GlobalConfigModel
+
+        # Load global config from file
+        config_path = 'config/global_settings.json'
+        try:
+            self._global_config = self._config_manager.load_config(
+                config_path,
+                model_class=GlobalConfigModel
+            )
+        except Exception:
+            # File doesn't exist or is invalid - create default config
+            self._global_config = GlobalConfigModel(forecast_horizon=6)
+            # Save default config to file
+            self._config_manager.save_config(self._global_config, config_path)
+
+        return self._global_config
 
     def quit(self) -> None:
         """

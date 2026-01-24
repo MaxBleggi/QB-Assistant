@@ -47,9 +47,12 @@ class MainMenuForm(tk.Frame):
         )
         subtitle.grid(row=1, column=0, pady=(0, 20))
 
+        # Create forecast settings section
+        self._create_forecast_settings()
+
         # Create navigation buttons container
         nav_frame = tk.Frame(self)
-        nav_frame.grid(row=2, column=0, pady=20)
+        nav_frame.grid(row=3, column=0, pady=20)
 
         # Sample Parameters button
         sample_btn = tk.Button(
@@ -106,7 +109,101 @@ class MainMenuForm(tk.Frame):
             font=('Arial', 10),
             fg='#666'
         )
-        self.status_label.grid(row=3, column=0, pady=10)
+        self.status_label.grid(row=4, column=0, pady=10)
+
+    def _create_forecast_settings(self) -> None:
+        """
+        Create forecast settings section with horizon selector.
+
+        Adds radio buttons for 6-month/12-month forecast horizon selection,
+        help text explaining the options, and persistence via global config.
+        """
+        # Create settings container frame
+        settings_frame = tk.Frame(self, relief=tk.RIDGE, borderwidth=1, padx=15, pady=10)
+        settings_frame.grid(row=2, column=0, pady=(0, 10))
+
+        # Section header
+        header = tk.Label(
+            settings_frame,
+            text="Forecast Settings",
+            font=('Arial', 11, 'bold')
+        )
+        header.grid(row=0, column=0, columnspan=2, sticky='w', pady=(0, 5))
+
+        # Horizon selector label
+        horizon_label = tk.Label(
+            settings_frame,
+            text="Forecast Horizon:",
+            font=('Arial', 10)
+        )
+        horizon_label.grid(row=1, column=0, sticky='w', pady=5)
+
+        # Load current horizon from global config
+        global_config = self.parent.get_global_config()
+        current_horizon = global_config.forecast_horizon
+
+        # Create StringVar for radio button state
+        self.horizon_var = tk.StringVar(value=str(current_horizon))
+
+        # Create radio buttons frame
+        radio_frame = tk.Frame(settings_frame)
+        radio_frame.grid(row=1, column=1, sticky='w', pady=5)
+
+        # 6-month radio button
+        radio_6 = tk.Radiobutton(
+            radio_frame,
+            text="6 months",
+            variable=self.horizon_var,
+            value="6",
+            command=self._on_horizon_changed,
+            font=('Arial', 10)
+        )
+        radio_6.pack(side=tk.LEFT, padx=(0, 15))
+
+        # 12-month radio button
+        radio_12 = tk.Radiobutton(
+            radio_frame,
+            text="12 months",
+            variable=self.horizon_var,
+            value="12",
+            command=self._on_horizon_changed,
+            font=('Arial', 10)
+        )
+        radio_12.pack(side=tk.LEFT)
+
+        # Help text explaining the options
+        help_text = tk.Label(
+            settings_frame,
+            text="6-month for near-term liquidity planning, 12-month for strategic expansion decisions",
+            font=('Arial', 9),
+            fg='#666',
+            wraplength=600,
+            justify='left'
+        )
+        help_text.grid(row=2, column=0, columnspan=2, sticky='w', pady=(5, 0))
+
+    def _on_horizon_changed(self) -> None:
+        """
+        Handle forecast horizon selection change.
+
+        Updates global configuration and persists to config/global_settings.json.
+        """
+        # Get selected horizon value
+        new_horizon = int(self.horizon_var.get())
+
+        # Update global config
+        global_config = self.parent.get_global_config()
+        global_config.forecast_horizon = new_horizon
+
+        # Save to file
+        config_manager = self.parent.get_config_manager()
+        config_manager.save_config(global_config, 'config/global_settings.json')
+
+        # Update status label
+        self.status_label.config(
+            text=f"Forecast horizon updated to {new_horizon} months",
+            fg='#4CAF50'
+        )
 
     def on_sample_params_clicked(self) -> None:
         """

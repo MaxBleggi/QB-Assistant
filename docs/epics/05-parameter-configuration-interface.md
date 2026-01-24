@@ -108,7 +108,7 @@ Build GUI for users to manually annotate anomalous date ranges in historical dat
 
 ### Sprint 5.6: External Economic Event Parameters
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Extend ForecastScenario to support planned future external events (tariffs, policy changes, economic shocks) that may occur during the forecast horizon. Allow users to specify month (1-12 for forecast periods), impact type (revenue reduction, cost increase, etc.), magnitude (percentage), and description for events expected to affect the business. This handles FORWARD-LOOKING external events (vs Sprint 5.5 which handles HISTORICAL anomalies). Integrate with Epic 4 forecast calculation to apply these adjustments to projected values.
@@ -129,7 +129,7 @@ Extend ForecastScenario to support planned future external events (tariffs, poli
 
 ### Sprint 5.7: Variable Forecast Horizon Selector
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Add UI control for selecting forecast horizon between 6-month (operational planning) and 12-month (expansion planning). Default to 6-month with clear visual indication of which horizon is active. Apply uniformly across all scenarios in the report (uniform horizon policy - all scenarios use same 6 or 12 month setting). Provide help text explaining the difference: "6-month for near-term liquidity planning, 12-month for strategic expansion decisions."
