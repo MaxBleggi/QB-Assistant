@@ -1,6 +1,6 @@
 # Epic 6: Report Generation & Output
 
-**Status**: NOT STARTED
+**Status**: STARTED
 **Priority**: Medium
 **Dependencies**: Epic 2 (metrics), Epic 3 (budget), Epic 4 (forecasts) - requires all calculations to be complete
 
@@ -27,7 +27,7 @@ The output must be polished and professional since bookkeepers will deliver thes
 
 ### Sprint 6.1: Excel Output Framework
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Create the Excel workbook generation framework using openpyxl or xlsxwriter library. Implement template structure with multiple sheets including Executive Summary, KPI Dashboard, Budget vs Actual, Cash Flow Forecast, and P&L Forecast. Build formatting utilities for professional appearance including header styles, currency formatting ($ with thousand separators), percentage formatting, borders, font sizing, and column width auto-adjustment. Implement helper functions for common operations like writing tables, creating headers, and applying conditional formatting. Verify workbooks open correctly in Excel on macOS.

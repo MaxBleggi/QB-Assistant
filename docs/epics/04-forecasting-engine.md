@@ -16,17 +16,17 @@ Supports multiple scenarios (Conservative, Expected, Optimistic) with independen
 
 ## Success Criteria
 
-- [ ] Generates 6-month OR 12-month Cash Flow forecasts (user-selectable horizon)
-- [ ] Generates 6-month OR 12-month P&L forecasts (user-selectable horizon)
-- [ ] Provides statistical confidence intervals (80% default, using historical percentiles method)
-- [ ] Excludes user-annotated anomalies from baseline and volatility calculations
-- [ ] Uses median-based statistics for outlier robustness
-- [ ] Supports multiple named scenarios with independent parameters
-- [ ] Enforces uniform horizon policy (all scenarios use same 6 or 12 month setting)
-- [ ] Validates forecasts for reasonability and provides warnings for concerning trends
-- [ ] Compares forecast to budget for overlapping periods (variance analysis)
-- [ ] Handles minimal seasonality with discrete event focus
-- [ ] All forecasts explainable to small business owners (not black-box algorithms)
+- [x] Generates 6-month OR 12-month Cash Flow forecasts (user-selectable horizon)
+- [x] Generates 6-month OR 12-month P&L forecasts (user-selectable horizon)
+- [x] Provides statistical confidence intervals (80% default, using historical percentiles method)
+- [x] Excludes user-annotated anomalies from baseline and volatility calculations
+- [x] Uses median-based statistics for outlier robustness
+- [x] Supports multiple named scenarios with independent parameters
+- [x] Enforces uniform horizon policy (all scenarios use same 6 or 12 month setting)
+- [x] Validates forecasts for reasonability and provides warnings for concerning trends
+- [x] Compares forecast to budget for overlapping periods (variance analysis)
+- [x] Handles minimal seasonality with discrete event focus
+- [x] All forecasts explainable to small business owners (not black-box algorithms)
 
 ---
 

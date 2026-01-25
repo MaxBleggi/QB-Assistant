@@ -210,6 +210,80 @@ class BaseExcelWriter:
         for child in children:
             yield from self.traverse_hierarchy(child, indent_level + 1, forecast)
 
+    def apply_trend_indicator(self, ws: Worksheet, cell: str, growth_rate: Optional[float]) -> None:
+        """
+        Apply trend indicator symbol and color to a cell based on growth rate.
+
+        Applies:
+        - '▲' with green font for positive growth
+        - '▼' with red font for negative growth
+        - '—' with gray font for zero or None growth
+
+        Args:
+            ws: Worksheet containing the cell
+            cell: Cell address (e.g., 'C5')
+            growth_rate: Growth rate as decimal (e.g., 0.05 for 5% growth, -0.03 for -3% decline)
+        """
+        if growth_rate is None or growth_rate == 0.0:
+            # Zero or missing growth - neutral indicator
+            ws[cell].value = '—'
+            ws[cell].font = Font(color='808080')  # Gray RGB(128, 128, 128)
+        elif growth_rate > 0:
+            # Positive growth - upward indicator
+            ws[cell].value = '▲'
+            ws[cell].font = Font(color='00B050')  # Green RGB(0, 176, 80)
+        else:
+            # Negative growth - downward indicator
+            ws[cell].value = '▼'
+            ws[cell].font = Font(color='C00000')  # Red RGB(192, 0, 0)
+
+    def apply_conditional_highlight(self, ws: Worksheet, cell_range: str, fill_color: str) -> None:
+        """
+        Apply background color fill to cell or range.
+
+        Args:
+            ws: Worksheet containing cells
+            cell_range: Cell address (e.g., 'B5') or range (e.g., 'B5:B10')
+            fill_color: Hex color code (e.g., 'FFE699' for yellow RGB(255, 230, 153))
+        """
+        # Parse range
+        if ':' in cell_range:
+            cells = ws[cell_range]
+            # Flatten if needed
+            if isinstance(cells, tuple) and isinstance(cells[0], tuple):
+                cells = [cell for row in cells for cell in row]
+            elif isinstance(cells, tuple):
+                cells = list(cells)
+        else:
+            cells = [ws[cell_range]]
+
+        # Apply fill color to each cell
+        for cell in cells:
+            cell.fill = PatternFill(start_color=fill_color, end_color=fill_color, fill_type='solid')
+
+    def format_bold(self, ws: Worksheet, cell_range: str) -> None:
+        """
+        Apply bold font to cell or range.
+
+        Args:
+            ws: Worksheet containing cells
+            cell_range: Cell address (e.g., 'A1') or range (e.g., 'A1:A3')
+        """
+        # Parse range
+        if ':' in cell_range:
+            cells = ws[cell_range]
+            # Flatten if needed
+            if isinstance(cells, tuple) and isinstance(cells[0], tuple):
+                cells = [cell for row in cells for cell in row]
+            elif isinstance(cells, tuple):
+                cells = list(cells)
+        else:
+            cells = [ws[cell_range]]
+
+        # Apply bold font to each cell
+        for cell in cells:
+            cell.font = Font(bold=True)
+
     def save(self, file_path: str) -> None:
         """
         Save workbook to .xlsx file.
