@@ -160,10 +160,12 @@ class TestBaselineCalculation:
         mock_model.get_income.return_value = income_section
         mock_model.get_cogs.return_value = None
         mock_model.get_expenses.return_value = {'values': {f'2024-{i:02d}': 5000 for i in range(1, 6)}}
+        mock_model.get_periods.return_value = [f'2024-{i:02d}' for i in range(1, 6)]
 
         # Mock anomaly annotations (but don't actually exclude for this test)
         mock_anomaly = Mock(spec=AnomalyAnnotationModel)
         mock_anomaly.get_annotations_by_exclusion_type.return_value = []
+        mock_anomaly.get_annotations.return_value = []
 
         calculator = PLForecastCalculator(
             pl_model=mock_model,

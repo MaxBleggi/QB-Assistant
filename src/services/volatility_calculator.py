@@ -8,6 +8,8 @@ from typing import Any, Dict, Optional
 
 import pandas as pd
 
+from src.services.anomaly_data_filter import AnomalyDataFilter
+
 
 class VolatilityCalculator:
     """
@@ -172,34 +174,30 @@ class VolatilityCalculator:
         if not self.anomaly_annotations:
             return self.historical_values
 
-        # Get annotations with 'volatility' exclusion type
-        volatility_annotations = self.anomaly_annotations.get_annotations_by_exclusion_type('volatility')
+        # Get all annotations
+        annotations = self.anomaly_annotations.get_annotations()
 
-        if not volatility_annotations:
+        if not annotations:
             return self.historical_values
 
-        # Extract period names to exclude
-        # Annotations have start_date and end_date - we need to match against Series index
-        excluded_periods = set()
-        for ann in volatility_annotations:
-            # Get start and end dates from annotation
-            start_date = ann.get('start_date')
-            end_date = ann.get('end_date')
+        # Ensure datetime index for proper date range matching
+        historical_with_datetime = self.historical_values.copy()
+        if not isinstance(historical_with_datetime.index, pd.DatetimeIndex):
+            # Try to convert index to datetime with format parameter for flexibility
+            historical_with_datetime.index = pd.to_datetime(self.historical_values.index, format='%Y-%m', errors='coerce')
 
-            # For simplicity, if the annotation contains period names directly, use them
-            # Otherwise, match by checking if index values fall in range
-            # (Full implementation would do date matching - here we use simplified approach)
+        # Apply filter with 'volatility' exclusion type
+        filter_service = AnomalyDataFilter(
+            historical_with_datetime,
+            annotations,
+            exclusion_type='volatility'
+        )
 
-            # Check if annotation has a period_name field (simplified)
-            if 'period_name' in ann:
-                excluded_periods.add(ann['period_name'])
-
-        # Filter out excluded periods
-        if excluded_periods:
-            filtered = self.historical_values[~self.historical_values.index.isin(excluded_periods)]
-        else:
-            # If no specific periods identified, return all values
-            # (In production, would implement date range matching)
-            filtered = self.historical_values
-
-        return filtered
+        try:
+            filter_result = filter_service.filter()
+            filtered_series = filter_result['filtered_series']
+            return filtered_series
+        except ValueError:
+            # If 100% of data would be excluded, fall back to original
+            # (volatility calculation will handle insufficient data)
+            return self.historical_values

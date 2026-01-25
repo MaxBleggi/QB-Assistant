@@ -52,11 +52,13 @@ def historical_data_6_months():
 def anomaly_annotations_volatility_type():
     """Mock AnomalyAnnotationModel with 3 periods marked for 'volatility' exclusion."""
     mock_annotations = Mock()
-    mock_annotations.get_annotations_by_exclusion_type.return_value = [
-        {'period_name': '2024-03', 'start_date': '2024-03-01', 'end_date': '2024-03-31', 'reason': 'Market crash'},
-        {'period_name': '2024-08', 'start_date': '2024-08-01', 'end_date': '2024-08-31', 'reason': 'Supply shock'},
-        {'period_name': '2024-15', 'start_date': '2024-15-01', 'end_date': '2024-15-31', 'reason': 'Seasonal anomaly'}
+    annotations_list = [
+        {'period_name': '2024-03', 'start_date': '2024-03-01', 'end_date': '2024-03-31', 'exclude_from': 'volatility', 'reason': 'Market crash'},
+        {'period_name': '2024-08', 'start_date': '2024-08-01', 'end_date': '2024-08-31', 'exclude_from': 'volatility', 'reason': 'Supply shock'},
+        {'period_name': '2024-15', 'start_date': '2024-15-01', 'end_date': '2024-15-31', 'exclude_from': 'volatility', 'reason': 'Seasonal anomaly'}
     ]
+    mock_annotations.get_annotations_by_exclusion_type.return_value = annotations_list
+    mock_annotations.get_annotations.return_value = annotations_list
     return mock_annotations
 
 
@@ -65,6 +67,7 @@ def anomaly_annotations_no_volatility():
     """Mock AnomalyAnnotationModel with no 'volatility' exclusion type."""
     mock_annotations = Mock()
     mock_annotations.get_annotations_by_exclusion_type.return_value = []
+    mock_annotations.get_annotations.return_value = []
     return mock_annotations
 
 
@@ -265,10 +268,12 @@ def test_volatility_calculator_exclusion_triggers_sparse_fallback():
 
     # Mock annotations that would exclude 5 periods
     mock_annotations = Mock()
-    mock_annotations.get_annotations_by_exclusion_type.return_value = [
-        {'period_name': f'2024-{i:02d}', 'start_date': f'2024-{i:02d}-01', 'end_date': f'2024-{i:02d}-31'}
+    annotations_list = [
+        {'period_name': f'2024-{i:02d}', 'start_date': f'2024-{i:02d}-01', 'end_date': f'2024-{i:02d}-31', 'exclude_from': 'volatility', 'reason': 'test'}
         for i in range(1, 6)
     ]
+    mock_annotations.get_annotations_by_exclusion_type.return_value = annotations_list
+    mock_annotations.get_annotations.return_value = annotations_list
 
     calc = VolatilityCalculator(
         historical_values=historical_data,
@@ -728,11 +733,13 @@ def test_metadata_excluded_periods_count():
 
     # Mock annotations with 3 volatility exclusions
     mock_annotations = Mock()
-    mock_annotations.get_annotations_by_exclusion_type.return_value = [
-        {'period_name': '2024-03', 'start_date': '2024-03-01', 'end_date': '2024-03-31'},
-        {'period_name': '2024-08', 'start_date': '2024-08-01', 'end_date': '2024-08-31'},
-        {'period_name': '2024-15', 'start_date': '2024-15-01', 'end_date': '2024-15-31'}
+    annotations_list = [
+        {'period_name': '2024-03', 'start_date': '2024-03-01', 'end_date': '2024-03-31', 'exclude_from': 'volatility', 'reason': 'test'},
+        {'period_name': '2024-08', 'start_date': '2024-08-01', 'end_date': '2024-08-31', 'exclude_from': 'volatility', 'reason': 'test'},
+        {'period_name': '2024-12', 'start_date': '2024-12-01', 'end_date': '2024-12-31', 'exclude_from': 'volatility', 'reason': 'test'}
     ]
+    mock_annotations.get_annotations_by_exclusion_type.return_value = annotations_list
+    mock_annotations.get_annotations.return_value = annotations_list
 
     calc = CashFlowForecastCalculator(
         cash_flow_model=mock_cash_flow,

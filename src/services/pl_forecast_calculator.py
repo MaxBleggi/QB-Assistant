@@ -15,6 +15,7 @@ from src.models.forecast_scenario import ForecastScenarioModel
 from src.models.anomaly_annotation import AnomalyAnnotationModel
 from src.models.pl_forecast_model import PLForecastModel
 from src.services.volatility_calculator import VolatilityCalculator
+from src.services.anomaly_data_filter import AnomalyDataFilter
 
 
 class PLForecastCalculator:
@@ -45,6 +46,7 @@ class PLForecastCalculator:
         self.anomaly_annotations = anomaly_annotations
         self.warnings = []
         self.volatility_metadata = None
+        self.exclusion_metadata = None
 
     def calculate(self) -> PLForecastModel:
         """
@@ -169,50 +171,56 @@ class PLForecastCalculator:
 
             # Apply anomaly exclusion if provided
             if self.anomaly_annotations and historical_values:
-                excluded_annotations = self.anomaly_annotations.get_annotations_by_exclusion_type('baseline')
-                if not excluded_annotations:
-                    # Also check for 'both' exclusion type
-                    excluded_annotations = self.anomaly_annotations.get_annotations_by_exclusion_type('both')
+                # Get period labels for datetime index
+                periods = self.pl_model.get_periods()
 
-                if excluded_annotations:
-                    # Get periods
-                    periods = self.pl_model.get_periods()
-                    filtered_values = []
-                    excluded_count = 0
+                # Create pandas Series with datetime index
+                series = pd.Series(historical_values, index=pd.to_datetime(periods))
 
-                    for i, value in enumerate(historical_values):
-                        # Simplified: accept all values for now
-                        # Full implementation would match periods to exclusion dates
-                        is_excluded = False
-                        if not is_excluded:
-                            filtered_values.append(value)
-                        else:
-                            excluded_count += 1
+                # Get annotations for baseline exclusion
+                annotations = self.anomaly_annotations.get_annotations()
 
-                    # Check if sufficient data remains
-                    total_count = len(historical_values)
-                    remaining_count = len(filtered_values)
+                # Apply filter
+                filter_service = AnomalyDataFilter(series, annotations, exclusion_type='baseline')
+                try:
+                    filter_result = filter_service.filter()
+                    filtered_series = filter_result['filtered_series']
+                    metadata = filter_result['metadata']
 
-                    if remaining_count < 12 and remaining_count < (total_count * 0.5):
+                    # Check data sufficiency: <12 periods AND >=50% excluded
+                    if len(filtered_series) < 12 and metadata['exclusion_percentage'] >= 0.5:
                         raise ValueError(
                             f'Insufficient data after anomaly exclusion for {section_name}. '
-                            f'Need >= 12 periods or >= 50% of data. Got {remaining_count}/{total_count}.'
+                            f'Need >= 12 periods or < 50% exclusion. Got {len(filtered_series)}/{metadata["total_count"]} periods '
+                            f'({metadata["exclusion_percentage"]:.1%} excluded).'
                         )
 
-                    if remaining_count < 12:
+                    # Warn if <12 periods but <50% excluded (still proceed)
+                    if len(filtered_series) < 12:
                         self.warnings.append({
                             'type': 'INSUFFICIENT_DATA_AFTER_EXCLUSION',
-                            'message': f'Less than 12 periods remain for {section_name} after exclusion.',
-                            'excluded_count': excluded_count,
-                            'total_count': total_count,
-                            'remaining_count': remaining_count
+                            'message': f'Less than 12 periods remain for {section_name} after exclusion ({len(filtered_series)}/{metadata["total_count"]}). Proceeding with reduced dataset.',
+                            'excluded_count': metadata['excluded_count'],
+                            'total_count': metadata['total_count'],
+                            'remaining_count': len(filtered_series)
                         })
 
-                    historical_values = filtered_values if filtered_values else historical_values
+                    # Use filtered series
+                    series = filtered_series
+
+                    # Store metadata for later use (only store once, all sections use same annotations)
+                    if self.exclusion_metadata is None:
+                        self.exclusion_metadata = metadata
+
+                except ValueError as e:
+                    # Re-raise insufficient data errors
+                    raise e
+            else:
+                # No anomaly filtering - use historical values as-is
+                series = pd.Series(historical_values)
 
             # Calculate median
-            if historical_values:
-                series = pd.Series(historical_values)
+            if len(series) > 0:
                 baseline = series.median()
 
                 # Validate revenue baseline
@@ -583,13 +591,8 @@ class PLForecastCalculator:
                 excluded_annotations = self.anomaly_annotations.get_annotations_by_exclusion_type('both')
 
             if excluded_annotations:
-                metadata['excluded_periods'] = [
-                    {
-                        'start_date': ann.start_date,
-                        'end_date': ann.end_date,
-                        'reason': ann.reason
-                    }
-                    for ann in excluded_annotations
-                ]
+                # Use exclusion metadata from filter
+                if self.exclusion_metadata and self.exclusion_metadata['excluded_periods']:
+                    metadata['excluded_periods'] = self.exclusion_metadata['excluded_periods']
 
         return metadata
