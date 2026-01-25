@@ -1,6 +1,6 @@
 # Epic 6: Report Generation & Output
 
-**Status**: STARTED
+**Status**: DONE
 **Priority**: Medium
 **Dependencies**: Epic 2 (metrics), Epic 3 (budget), Epic 4 (forecasts) - requires all calculations to be complete
 
@@ -14,12 +14,12 @@ The output must be polished and professional since bookkeepers will deliver thes
 
 ## Success Criteria
 
-- [ ] Generates Excel workbooks (.xlsx format) compatible with Excel on macOS/Windows
-- [ ] Reports include all required sections (Executive Summary, KPIs, Budget vs Actual, Forecasts)
-- [ ] Professional formatting with clear headers, appropriate number formats, and visual hierarchy
-- [ ] Variance highlighting draws attention to significant deviations
-- [ ] Multi-scenario forecasts display side-by-side for comparison
-- [ ] Output files are ready for client delivery without manual reformatting
+- [x] Generates Excel workbooks (.xlsx format) compatible with Excel on macOS/Windows
+- [x] Reports include all required sections (Executive Summary, KPIs, Budget vs Actual, Forecasts)
+- [x] Professional formatting with clear headers, appropriate number formats, and visual hierarchy
+- [x] Variance highlighting draws attention to significant deviations
+- [x] Multi-scenario forecasts display side-by-side for comparison
+- [x] Output files are ready for client delivery without manual reformatting
 
 ---
 
@@ -87,7 +87,7 @@ Implement Budget vs Actual and Forecast report generators. Budget vs Actual tabl
 
 ### Sprint 6.4: Report Metadata & Explanatory Documentation
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Add report cover page and methodology documentation to help business owners understand how forecasts were calculated. Include report metadata (generation date, horizon selected, scenarios included), methodology summary (Simple Growth Rate Projection, historical percentiles confidence intervals), complete assumptions documentation (growth rates applied, collection periods, major events), excluded periods with reasons (anomalies annotated in Epic 5 Sprint 5.5), and confidence interval interpretation guide. Provide context and transparency so clients can trust and explain the forecast numbers.

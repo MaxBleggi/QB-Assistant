@@ -47,12 +47,15 @@ class MainMenuForm(tk.Frame):
         )
         subtitle.grid(row=1, column=0, pady=(0, 20))
 
+        # Create client context section
+        self._create_client_context()
+
         # Create forecast settings section
         self._create_forecast_settings()
 
         # Create navigation buttons container
         nav_frame = tk.Frame(self)
-        nav_frame.grid(row=3, column=0, pady=20)
+        nav_frame.grid(row=4, column=0, pady=20)
 
         # Sample Parameters button
         sample_btn = tk.Button(
@@ -109,7 +112,47 @@ class MainMenuForm(tk.Frame):
             font=('Arial', 10),
             fg='#666'
         )
-        self.status_label.grid(row=4, column=0, pady=10)
+        self.status_label.grid(row=5, column=0, pady=10)
+
+    def _create_client_context(self) -> None:
+        """
+        Create client context section showing current client and change button.
+
+        Displays current client name and provides button to navigate back to
+        client selection.
+        """
+        # Create client context container frame
+        client_frame = tk.Frame(self, relief=tk.RIDGE, borderwidth=1, padx=15, pady=10)
+        client_frame.grid(row=2, column=0, pady=(0, 10))
+
+        # Client label
+        client_label = tk.Label(
+            client_frame,
+            text="Current Client:",
+            font=('Arial', 10, 'bold')
+        )
+        client_label.pack(side=tk.LEFT, padx=(0, 10))
+
+        # Client name display
+        client_name = self.parent.selected_client or "None"
+        client_name_label = tk.Label(
+            client_frame,
+            text=client_name,
+            font=('Arial', 10),
+            fg='#2196F3'
+        )
+        client_name_label.pack(side=tk.LEFT, padx=(0, 20))
+
+        # Change Client button
+        change_btn = tk.Button(
+            client_frame,
+            text="Change Client",
+            command=self.on_change_client_clicked,
+            bg='#9E9E9E',
+            fg='white',
+            font=('Arial', 9, 'bold')
+        )
+        change_btn.pack(side=tk.LEFT)
 
     def _create_forecast_settings(self) -> None:
         """
@@ -120,7 +163,7 @@ class MainMenuForm(tk.Frame):
         """
         # Create settings container frame
         settings_frame = tk.Frame(self, relief=tk.RIDGE, borderwidth=1, padx=15, pady=10)
-        settings_frame.grid(row=2, column=0, pady=(0, 10))
+        settings_frame.grid(row=3, column=0, pady=(0, 10))
 
         # Section header
         header = tk.Label(
@@ -232,3 +275,10 @@ class MainMenuForm(tk.Frame):
         """
         from .anomaly_annotation_form import AnomalyAnnotationForm
         self.parent.show_form(AnomalyAnnotationForm)
+
+    def on_change_client_clicked(self) -> None:
+        """
+        Handle Change Client button click - navigate to ClientSelectionForm.
+        """
+        from .client_selection_form import ClientSelectionForm
+        self.parent.show_form(ClientSelectionForm)

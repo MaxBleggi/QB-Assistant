@@ -6,8 +6,10 @@ Provides window management, form navigation framework, and shared services
 """
 import tkinter as tk
 from typing import Optional, Type
+from pathlib import Path
 
 from ..persistence.config_manager import ConfigManager
+from ..services.client_manager import ClientManager
 
 
 class App(tk.Tk):
@@ -27,18 +29,25 @@ class App(tk.Tk):
         """
         super().__init__()
 
+        # Store project root as Path object
+        self.project_root = Path(project_root).resolve()
+
         # Window configuration
         self.title("QB-Assistant Parameter Configuration")
         self.geometry("800x600")
 
         # Initialize services
         self._config_manager = ConfigManager(project_root)
+        self._client_manager = ClientManager()
 
         # Track current form for lifecycle management
         self.current_form: Optional[tk.Frame] = None
 
         # Cache for global configuration (lazy loaded)
         self._global_config = None
+
+        # Track selected client (None until user selects)
+        self.selected_client: Optional[str] = None
 
     def show_form(self, form_class: Type[tk.Frame], **kwargs) -> None:
         """
@@ -66,6 +75,15 @@ class App(tk.Tk):
             ConfigManager for parameter persistence
         """
         return self._config_manager
+
+    def get_client_manager(self) -> ClientManager:
+        """
+        Get shared ClientManager instance.
+
+        Returns:
+            ClientManager for client folder operations
+        """
+        return self._client_manager
 
     def get_global_config(self):
         """

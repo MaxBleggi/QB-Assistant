@@ -75,7 +75,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [x] Sprint 5.6: External Economic Event Parameters
 - [x] Sprint 5.7: Variable Forecast Horizon Selector
 
-### Epic 6: Report Generation & Output [STARTED]
+### Epic 6: Report Generation & Output [DONE]
 **Purpose**: Format all calculated outputs into professional Excel-compatible spreadsheet reports with variable-horizon forecasts, confidence intervals, and explanatory documentation
 **Priority**: Medium
 **Estimated Sprints**: 4
@@ -83,7 +83,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [x] Sprint 6.1: Excel Output Framework
 - [x] Sprint 6.2: Executive Summary & KPI Sheets
 - [x] Sprint 6.3: Budget & Forecast Report Sections
-- [ ] Sprint 6.4: Report Metadata & Explanatory Documentation
+- [x] Sprint 6.4: Report Metadata & Explanatory Documentation
 
 ### Epic 7: Multi-client Infrastructure [NOT STARTED]
 **Purpose**: Handle client folder management, per-client configurations, and workflow for processing multiple clients
