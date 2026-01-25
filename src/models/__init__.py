@@ -11,6 +11,7 @@ from .cash_flow_model import CashFlowModel
 from .pl_model import PLModel
 from .pl_forecast_model import PLForecastModel
 from .parameters import ParameterModel
+from .forecast_scenario import ForecastScenarioModel
 from .anomaly_annotation import AnomalyAnnotationModel
 from .budget_model import BudgetModel
 from .variance_model import VarianceModel
@@ -25,6 +26,7 @@ __all__ = [
     'CashFlowForecastModel',
     'CashFlowModel',
     'DataModel',
+    'ForecastScenarioModel',
     'ForecastValidationResult',
     'MultiScenarioForecastResult',
     'PLForecastModel',

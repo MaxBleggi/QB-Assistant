@@ -8,15 +8,17 @@ Executive Summary, KPI Dashboard, Budget vs Actual, Cash Flow Forecast, and P&L 
 from .base_writer import BaseExcelWriter
 from .executive_summary_writer import ExecutiveSummaryWriter
 from .kpi_dashboard_writer import KPIDashboardWriter
-from .budget_variance_writer import BudgetVarianceWriter
-from .cash_flow_forecast_writer import CashFlowForecastWriter
-from .pl_forecast_writer import PLForecastWriter
+from .budget_variance_writer import BudgetVarianceReportWriter
+from .cash_flow_forecast_writer import CashFlowForecastReportWriter
+from .pl_forecast_writer import PLForecastReportWriter
+from .metadata_documentation_writer import MetadataDocumentationWriter
 
 __all__ = [
     'BaseExcelWriter',
-    'BudgetVarianceWriter',
-    'CashFlowForecastWriter',
+    'BudgetVarianceReportWriter',
+    'CashFlowForecastReportWriter',
     'ExecutiveSummaryWriter',
     'KPIDashboardWriter',
-    'PLForecastWriter',
+    'MetadataDocumentationWriter',
+    'PLForecastReportWriter',
 ]

@@ -46,7 +46,7 @@ Create the Excel workbook generation framework using openpyxl or xlsxwriter libr
 
 ### Sprint 6.2: Executive Summary & KPI Sheets
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Build report generators for Executive Summary and KPI Dashboard sheets. Executive Summary should display current month metrics including revenue (with MoM/YoY growth and trend indicators ▲/▼), gross margin, operating cash flow, and net income with margin percentage. Format with clear sections and visual hierarchy (bold headers, aligned columns, highlighted key figures). KPI Dashboard should display all calculated KPIs from Epic 2 including growth metrics, profitability ratios, and liquidity indicators with context (e.g., "Current Ratio: 1.9x" with interpretation). Use conditional formatting for trend indicators and threshold warnings (e.g., cash runway < 6 months highlighted in yellow).
@@ -65,7 +65,7 @@ Build report generators for Executive Summary and KPI Dashboard sheets. Executiv
 
 ### Sprint 6.3: Budget & Forecast Report Sections
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Implement Budget vs Actual and Forecast report generators. Budget vs Actual table should show line items from P&L with columns for Budget, Actual, Variance ($), and Variance (%), using conditional formatting to highlight significant variances (red for unfavorable >10%, yellow for moderate 5-10%). Include subtotals for revenue, expenses, and net income. Forecast sheets (separate sheets for Cash Flow and P&L) should display variable-horizon projections (6-month OR 12-month based on Epic 5 Sprint 5.7 setting) with monthly columns showing month-by-month detail. Display confidence intervals as three rows per metric: Lower Bound (10th percentile), Projected (median), Upper Bound (90th percentile). If multiple scenarios exist, display them side-by-side for comparison with clear scenario labels (all using same horizon per uniform policy). Include summary rows for totals and key metrics (ending cash, net income, margins).

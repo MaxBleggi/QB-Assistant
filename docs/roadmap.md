@@ -81,8 +81,8 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 **Estimated Sprints**: 4
 
 - [x] Sprint 6.1: Excel Output Framework
-- [ ] Sprint 6.2: Executive Summary & KPI Sheets
-- [ ] Sprint 6.3: Budget & Forecast Report Sections
+- [x] Sprint 6.2: Executive Summary & KPI Sheets
+- [x] Sprint 6.3: Budget & Forecast Report Sections
 - [ ] Sprint 6.4: Report Metadata & Explanatory Documentation
 
 ### Epic 7: Multi-client Infrastructure [NOT STARTED]
