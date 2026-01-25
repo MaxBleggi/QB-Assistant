@@ -89,7 +89,7 @@ class ClientSelectionForm(tk.Frame):
             command=self.on_create_clicked,
             width=18,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         create_btn.pack(pady=5)
@@ -101,7 +101,7 @@ class ClientSelectionForm(tk.Frame):
             command=self.on_select_clicked,
             width=18,
             bg='#2196F3',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         select_btn.pack(pady=5)
@@ -113,7 +113,7 @@ class ClientSelectionForm(tk.Frame):
             command=self.on_delete_clicked,
             width=18,
             bg='#F44336',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         delete_btn.pack(pady=5)
@@ -125,7 +125,7 @@ class ClientSelectionForm(tk.Frame):
             command=self.on_exit_clicked,
             width=18,
             bg='#9E9E9E',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         exit_btn.pack(pady=5)

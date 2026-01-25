@@ -78,7 +78,7 @@ class BudgetParamsForm(tk.Frame):
             command=self.on_save_clicked,
             width=20,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         save_btn.pack(side=tk.LEFT, padx=10)
@@ -90,7 +90,7 @@ class BudgetParamsForm(tk.Frame):
             command=self.on_load_clicked,
             width=20,
             bg='#2196F3',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         load_btn.pack(side=tk.LEFT, padx=10)
@@ -102,7 +102,7 @@ class BudgetParamsForm(tk.Frame):
             command=self.on_back_to_menu_clicked,
             width=20,
             bg='#9E9E9E',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         back_btn.pack(side=tk.LEFT, padx=10)

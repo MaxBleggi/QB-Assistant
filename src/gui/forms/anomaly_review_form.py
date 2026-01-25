@@ -192,7 +192,7 @@ class AnomalyReviewForm(tk.Frame):
             command=self.on_back_to_menu_clicked,
             width=20,
             bg='#9E9E9E',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         back_btn.grid(row=3, column=0, pady=10)
@@ -242,7 +242,7 @@ class AnomalyReviewForm(tk.Frame):
             command=self.on_confirm_clicked,
             width=20,
             bg='#F44336',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         confirm_btn.pack(side=tk.LEFT, padx=10)
@@ -254,7 +254,7 @@ class AnomalyReviewForm(tk.Frame):
             command=self.on_dismiss_clicked,
             width=20,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         dismiss_btn.pack(side=tk.LEFT, padx=10)
@@ -266,7 +266,7 @@ class AnomalyReviewForm(tk.Frame):
             command=self.on_back_to_menu_clicked,
             width=20,
             bg='#9E9E9E',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         back_btn.pack(side=tk.LEFT, padx=10)
@@ -392,7 +392,7 @@ class AnomalyReviewForm(tk.Frame):
             command=self.on_back_to_menu_clicked,
             width=20,
             bg='#9E9E9E',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         back_btn.grid(row=2, column=0, pady=10)

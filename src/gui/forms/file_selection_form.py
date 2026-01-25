@@ -82,7 +82,7 @@ class FileSelectionForm(tk.Frame):
             command=self._on_browse_balance_sheet,
             width=18,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         ).grid(row=0, column=2, pady=10)
 
@@ -109,7 +109,7 @@ class FileSelectionForm(tk.Frame):
             command=self._on_browse_profit_loss,
             width=18,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         ).grid(row=1, column=2, pady=10)
 
@@ -136,7 +136,7 @@ class FileSelectionForm(tk.Frame):
             command=self._on_browse_cash_flow,
             width=18,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         ).grid(row=2, column=2, pady=10)
 
@@ -163,7 +163,7 @@ class FileSelectionForm(tk.Frame):
             command=self._on_browse_historical_data,
             width=18,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         ).grid(row=3, column=2, pady=10)
 
@@ -178,7 +178,7 @@ class FileSelectionForm(tk.Frame):
             command=self._on_proceed,
             width=18,
             bg='#2196F3',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold'),
             state='disabled'
         )
@@ -191,7 +191,7 @@ class FileSelectionForm(tk.Frame):
             command=self._on_clear_selections,
             width=18,
             bg='#9E9E9E',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         clear_btn.pack(side=tk.LEFT, padx=5)

@@ -70,7 +70,7 @@ class MainMenuForm(tk.Frame):
             command=self.on_sample_params_clicked,
             width=30,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         sample_btn.pack(pady=10)
@@ -82,7 +82,7 @@ class MainMenuForm(tk.Frame):
             command=self.on_budget_params_clicked,
             width=30,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         budget_btn.pack(pady=10)
@@ -94,7 +94,7 @@ class MainMenuForm(tk.Frame):
             command=self.on_forecast_scenarios_clicked,
             width=30,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         scenarios_btn.pack(pady=10)
@@ -106,7 +106,7 @@ class MainMenuForm(tk.Frame):
             command=self.on_anomaly_review_clicked,
             width=30,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         anomaly_btn.pack(pady=10)
@@ -118,7 +118,7 @@ class MainMenuForm(tk.Frame):
             command=self._on_file_selection,
             width=30,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         file_selection_btn.pack(pady=10)
@@ -130,7 +130,7 @@ class MainMenuForm(tk.Frame):
             command=self._on_process_data,
             width=30,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         process_data_btn.pack(pady=10)
@@ -179,7 +179,7 @@ class MainMenuForm(tk.Frame):
             text="Change Client",
             command=self.on_change_client_clicked,
             bg='#9E9E9E',
-            fg='white',
+            fg='black',
             font=('Arial', 9, 'bold')
         )
         change_btn.pack(side=tk.LEFT)

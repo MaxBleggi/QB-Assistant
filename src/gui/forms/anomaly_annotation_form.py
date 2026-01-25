@@ -153,7 +153,7 @@ class AnomalyAnnotationForm(tk.Frame):
             command=self.on_back_to_menu_clicked,
             width=20,
             bg='#9E9E9E',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         back_btn.grid(row=30, column=0, pady=20)
@@ -338,7 +338,7 @@ class AnomalyAnnotationForm(tk.Frame):
             command=self.on_confirm_clicked,
             width=18,
             bg='#F44336',
-            fg='white',
+            fg='black',
             font=('Arial', 9, 'bold')
         )
         confirm_btn.pack(side=tk.LEFT, padx=5)
@@ -350,7 +350,7 @@ class AnomalyAnnotationForm(tk.Frame):
             command=self.on_dismiss_clicked,
             width=18,
             bg='#4CAF50',
-            fg='white',
+            fg='black',
             font=('Arial', 9, 'bold')
         )
         dismiss_btn.pack(side=tk.LEFT, padx=5)
@@ -415,7 +415,7 @@ class AnomalyAnnotationForm(tk.Frame):
             command=self.on_add_annotation_clicked,
             width=20,
             bg='#2196F3',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         add_btn.grid(row=start_row + 4, column=0, pady=10)
@@ -479,7 +479,7 @@ class AnomalyAnnotationForm(tk.Frame):
             command=self.on_delete_annotation_clicked,
             width=18,
             bg='#F44336',
-            fg='white',
+            fg='black',
             font=('Arial', 9, 'bold')
         )
         delete_btn.pack(side=tk.LEFT, padx=5)
@@ -744,7 +744,7 @@ class AnomalyAnnotationForm(tk.Frame):
             command=self.on_back_to_menu_clicked,
             width=20,
             bg='#9E9E9E',
-            fg='white',
+            fg='black',
             font=('Arial', 10, 'bold')
         )
         back_btn.grid(row=2, column=0, pady=10)

@@ -96,12 +96,12 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [x] Sprint 7.4: Progress Indicators & Error Handling
 - [x] Sprint 7.5: Main Application Entry Point
 
-### Epic 8:  Documentation & Maintenance [NOT STARTED]
+### Epic 8:  Documentation & Maintenance [IN PROGRESS]
 **Purpose**: Handle client folder management, per-client configurations, and workflow for processing multiple clients
 **Priority**: Low
 **Estimated Sprints**: 2
 
-- [ ] Sprint 8.1: User Documentation
+- [x] Sprint 8.1: User Documentation
 - [ ] Sprint 8.2: Technical Documentation for FORGE
 
 ---
