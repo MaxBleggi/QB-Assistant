@@ -105,6 +105,18 @@ class MainMenuForm(tk.Frame):
         )
         anomaly_btn.pack(pady=10)
 
+        # Select Input Files button
+        file_selection_btn = tk.Button(
+            nav_frame,
+            text="Select Input Files",
+            command=self._on_file_selection,
+            width=30,
+            bg='#4CAF50',
+            fg='white',
+            font=('Arial', 10, 'bold')
+        )
+        file_selection_btn.pack(pady=10)
+
         # Status message label
         self.status_label = tk.Label(
             self,
@@ -282,3 +294,10 @@ class MainMenuForm(tk.Frame):
         """
         from .client_selection_form import ClientSelectionForm
         self.parent.show_form(ClientSelectionForm)
+
+    def _on_file_selection(self) -> None:
+        """
+        Handle Select Input Files button click - navigate to FileSelectionForm.
+        """
+        from .file_selection_form import FileSelectionForm
+        self.parent.show_form(FileSelectionForm)

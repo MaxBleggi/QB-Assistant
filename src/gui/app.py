@@ -49,6 +49,12 @@ class App(tk.Tk):
         # Track selected client (None until user selects)
         self.selected_client: Optional[str] = None
 
+        # Track selected input files for processing pipeline (None until user selects)
+        self.selected_balance_sheet: Optional[str] = None
+        self.selected_profit_loss: Optional[str] = None
+        self.selected_cash_flow: Optional[str] = None
+        self.selected_historical_data: Optional[str] = None
+
     def show_form(self, form_class: Type[tk.Frame], **kwargs) -> None:
         """
         Switch active form by destroying current and creating new form.

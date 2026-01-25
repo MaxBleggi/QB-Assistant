@@ -91,7 +91,10 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 **Estimated Sprints**: 2
 
 - [x] Sprint 7.1: Client Folder Management System
-- [ ] Sprint 7.2: End-to-End Workflow Integration
+- [ ] Sprint 7.2: File Selection & Validation Workflow
+- [ ] Sprint 7.3: Core Pipeline Integration & Orchestration
+- [ ] Sprint 7.4: Progress Indicators & Error Handling
+- [ ] Sprint 7.5: Main Application Entry Point
 
 ---
 
