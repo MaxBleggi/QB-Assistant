@@ -18,8 +18,10 @@ from src.models.pl_model import PLModel
 from src.models.forecast_scenario import ForecastScenariosCollection
 from src.models.anomaly_annotation import AnomalyAnnotationModel
 from src.models.multi_scenario_forecast_result import MultiScenarioForecastResult
+from src.models.forecast_validation import ValidationThresholds
 from src.services.cash_flow_forecast_calculator import CashFlowForecastCalculator
 from src.services.pl_forecast_calculator import PLForecastCalculator
+from src.validators.forecast_validator import ForecastValidator
 from src.persistence.config_manager import ConfigManager
 
 
@@ -139,10 +141,33 @@ class ScenarioForecastOrchestrator:
 
                 logger.debug(f"Scenario '{scenario_name}': P&L forecast complete")
 
+                # Validate forecast results
+                validation_result = None
+                try:
+                    thresholds = ValidationThresholds()
+                    validator = ForecastValidator(
+                        cash_flow_forecast=cash_flow_forecast,
+                        pl_forecast=pl_forecast,
+                        thresholds=thresholds
+                    )
+                    validation_result = validator.validate()
+                    logger.debug(
+                        f"Scenario '{scenario_name}': Validation complete - "
+                        f"status={validation_result.validation_status}, "
+                        f"warnings={len(validation_result.warnings)}"
+                    )
+                except Exception as validation_error:
+                    # Log error but continue - validation failure shouldn't break forecasting
+                    logger.error(
+                        f"Scenario '{scenario_name}': Validation failed - {str(validation_error)}"
+                    )
+                    validation_result = None
+
                 # Store results for this scenario
                 scenario_forecasts[scenario_name] = {
                     'cash_flow_forecast': cash_flow_forecast,
-                    'pl_forecast': pl_forecast
+                    'pl_forecast': pl_forecast,
+                    'validation_result': validation_result
                 }
 
                 logger.info(

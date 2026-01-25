@@ -16,6 +16,7 @@ from .budget_model import BudgetModel
 from .variance_model import VarianceModel
 from .ytd_model import YTDModel
 from .multi_scenario_forecast_result import MultiScenarioForecastResult
+from .forecast_validation import ForecastValidationResult, ValidationThresholds
 
 __all__ = [
     'AnomalyAnnotationModel',
@@ -24,10 +25,12 @@ __all__ = [
     'CashFlowForecastModel',
     'CashFlowModel',
     'DataModel',
+    'ForecastValidationResult',
     'MultiScenarioForecastResult',
     'PLForecastModel',
     'PLModel',
     'ParameterModel',
+    'ValidationThresholds',
     'VarianceModel',
     'YTDModel',
 ]
