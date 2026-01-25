@@ -85,7 +85,7 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [x] Sprint 6.3: Budget & Forecast Report Sections
 - [x] Sprint 6.4: Report Metadata & Explanatory Documentation
 
-### Epic 7: Multi-client Infrastructure [IN PROGRESS]
+### Epic 7: Multi-client Infrastructure [DONE]
 **Purpose**: Handle client folder management, per-client configurations, and workflow for processing multiple clients
 **Priority**: Low
 **Estimated Sprints**: 2
@@ -94,7 +94,15 @@ Output is provided as Excel-compatible spreadsheet reports that can be directly 
 - [x] Sprint 7.2: File Selection & Validation Workflow
 - [x] Sprint 7.3: Core Pipeline Integration & Orchestration
 - [x] Sprint 7.4: Progress Indicators & Error Handling
-- [ ] Sprint 7.5: Main Application Entry Point
+- [x] Sprint 7.5: Main Application Entry Point
+
+### Epic 8:  Documentation & Maintenance [NOT STARTED]
+**Purpose**: Handle client folder management, per-client configurations, and workflow for processing multiple clients
+**Priority**: Low
+**Estimated Sprints**: 2
+
+- [ ] Sprint 8.1: User Documentation
+- [ ] Sprint 8.2: Technical Documentation for FORGE
 
 ---
 
