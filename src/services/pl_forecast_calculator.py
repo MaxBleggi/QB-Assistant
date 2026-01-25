@@ -14,6 +14,7 @@ from src.models.pl_model import PLModel
 from src.models.forecast_scenario import ForecastScenarioModel
 from src.models.anomaly_annotation import AnomalyAnnotationModel
 from src.models.pl_forecast_model import PLForecastModel
+from src.services.volatility_calculator import VolatilityCalculator
 
 
 class PLForecastCalculator:
@@ -43,6 +44,7 @@ class PLForecastCalculator:
         self.forecast_scenario = forecast_scenario
         self.anomaly_annotations = anomaly_annotations
         self.warnings = []
+        self.volatility_metadata = None
 
     def calculate(self) -> PLForecastModel:
         """
@@ -360,43 +362,48 @@ class PLForecastCalculator:
                     'section': section_name
                 })
 
-            # Calculate percentiles
+            # Calculate volatility using VolatilityCalculator
             if historical_values and len(historical_values) >= 3:
                 series = pd.Series(historical_values)
-                historical_10th = series.quantile(0.10)
-                historical_90th = series.quantile(0.90)
-                historical_median = baselines.get(section_name, series.median())
 
-                # Avoid division by zero
-                if historical_median == 0:
-                    # Use 5% default bounds
-                    lower_bounds = {}
-                    upper_bounds = {}
-                    section_projections = projections.get(section_name, {})
+                # Extract confidence_level from forecast scenario parameters
+                confidence_level = self.forecast_scenario.parameters.get('confidence_level', 0.80)
 
-                    for month in range(1, forecast_horizon + 1):
-                        projected_value = section_projections.get(month, 0.0)
-                        lower_bounds[month] = projected_value * 0.95
-                        upper_bounds[month] = projected_value * 1.05
+                # Instantiate VolatilityCalculator
+                volatility_calc = VolatilityCalculator(
+                    historical_values=series,
+                    confidence_level=confidence_level,
+                    anomaly_annotations=self.anomaly_annotations
+                )
 
-                    confidence_intervals[section_name] = {
-                        'lower_bound': lower_bounds,
-                        'upper_bound': upper_bounds
-                    }
-                    continue
+                # Calculate volatility
+                result = volatility_calc.calculate()
 
-                lower_ratio = historical_10th / historical_median
-                upper_ratio = historical_90th / historical_median
+                # Extract ratios
+                lower_ratio = result['percentile_ratios']['lower_ratio']
+                upper_ratio = result['percentile_ratios']['upper_ratio']
 
-                # Check for low variance
-                variance_range = (historical_90th - historical_10th) / abs(historical_median)
-                if variance_range < 0.05:
-                    self.warnings.append({
-                        'type': 'LOW_VARIANCE_MINIMUM_INTERVAL',
-                        'message': f'Low historical variance for {section_name}. Enforcing minimum 5% confidence width.',
-                        'variance_range': variance_range,
-                        'section': section_name
-                    })
+                # Store metadata for later inclusion in forecast metadata
+                self.volatility_metadata = result['metadata']
+
+                # Merge warnings from volatility calculator
+                if volatility_calc.warnings:
+                    for warning_msg in volatility_calc.warnings:
+                        # Detect warning type from message content
+                        if 'Low historical variance' in warning_msg:
+                            warning_type = 'LOW_VARIANCE_MINIMUM_INTERVAL'
+                        elif 'Insufficient historical data' in warning_msg:
+                            warning_type = 'INSUFFICIENT_VOLATILITY_DATA'
+                        elif 'zero median' in warning_msg:
+                            warning_type = 'ZERO_MEDIAN_VOLATILITY'
+                        else:
+                            warning_type = 'VOLATILITY_CALCULATION'
+
+                        self.warnings.append({
+                            'type': warning_type,
+                            'message': warning_msg,
+                            'section': section_name
+                        })
 
                 # Symmetric alpha coefficients for P&L
                 alpha_lower = 0.10
@@ -550,7 +557,7 @@ class PLForecastCalculator:
 
     def _build_metadata(self, forecast_horizon: int) -> Dict[str, Any]:
         """
-        Build metadata dict with confidence level, forecast horizon, excluded periods, and warnings.
+        Build metadata dict with confidence level, forecast horizon, excluded periods, warnings, and volatility statistics.
 
         Args:
             forecast_horizon: Number of forecast months
@@ -558,11 +565,15 @@ class PLForecastCalculator:
         Returns:
             Metadata dict with all required fields
         """
+        # Get confidence level from scenario or default
+        confidence_level = self.forecast_scenario.parameters.get('confidence_level', 0.80)
+
         metadata = {
-            'confidence_level': 0.80,
+            'confidence_level': confidence_level,
             'forecast_horizon': forecast_horizon,
             'excluded_periods': [],
-            'warnings': self.warnings
+            'warnings': self.warnings,
+            'volatility_statistics': self.volatility_metadata if self.volatility_metadata else None
         }
 
         # Add excluded periods if anomaly annotations were used

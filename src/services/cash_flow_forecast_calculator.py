@@ -15,6 +15,7 @@ from src.models.cash_flow_model import CashFlowModel
 from src.models.forecast_scenario import ForecastScenarioModel
 from src.models.anomaly_annotation import AnomalyAnnotationModel
 from src.models.cash_flow_forecast_model import CashFlowForecastModel
+from src.services.volatility_calculator import VolatilityCalculator
 
 
 class CashFlowForecastCalculator:
@@ -44,6 +45,7 @@ class CashFlowForecastCalculator:
         self.forecast_scenario = forecast_scenario
         self.anomaly_annotations = anomaly_annotations
         self.warnings = []
+        self.volatility_metadata = None
 
     def calculate(self) -> CashFlowForecastModel:
         """
@@ -302,28 +304,48 @@ class CashFlowForecastCalculator:
                     'period_count': len(historical_values)
                 })
 
-            # Calculate percentiles
+            # Calculate volatility using VolatilityCalculator
             if historical_values:
                 series = pd.Series(historical_values)
-                historical_10th = series.quantile(0.10)
-                historical_90th = series.quantile(0.90)
-                historical_median = series.median()
 
-                # Avoid division by zero
-                if historical_median == 0:
-                    raise ValueError(f'Cannot calculate confidence ratios with zero median for {section_name}')
+                # Extract confidence_level from forecast scenario parameters
+                confidence_level = self.forecast_scenario.parameters.get('confidence_level', 0.80)
 
-                lower_ratio = historical_10th / historical_median
-                upper_ratio = historical_90th / historical_median
+                # Instantiate VolatilityCalculator
+                volatility_calc = VolatilityCalculator(
+                    historical_values=series,
+                    confidence_level=confidence_level,
+                    anomaly_annotations=self.anomaly_annotations
+                )
 
-                # Check for low variance
-                variance_range = (historical_90th - historical_10th) / abs(historical_median)
-                if variance_range < 0.05:
-                    self.warnings.append({
-                        'type': 'LOW_VARIANCE_MINIMUM_INTERVAL',
-                        'message': f'Low historical variance for {section_name}. Enforcing minimum 5% confidence width.',
-                        'variance_range': variance_range
-                    })
+                # Calculate volatility
+                result = volatility_calc.calculate()
+
+                # Extract ratios
+                lower_ratio = result['percentile_ratios']['lower_ratio']
+                upper_ratio = result['percentile_ratios']['upper_ratio']
+
+                # Store metadata for later inclusion in forecast metadata
+                self.volatility_metadata = result['metadata']
+
+                # Merge warnings from volatility calculator
+                if volatility_calc.warnings:
+                    for warning_msg in volatility_calc.warnings:
+                        # Detect warning type from message content
+                        if 'Low historical variance' in warning_msg:
+                            warning_type = 'LOW_VARIANCE_MINIMUM_INTERVAL'
+                        elif 'Insufficient historical data' in warning_msg:
+                            warning_type = 'INSUFFICIENT_VOLATILITY_DATA'
+                        elif 'zero median' in warning_msg:
+                            warning_type = 'ZERO_MEDIAN_VOLATILITY'
+                        else:
+                            warning_type = 'VOLATILITY_CALCULATION'
+
+                        self.warnings.append({
+                            'type': warning_type,
+                            'message': warning_msg,
+                            'section': section_name
+                        })
 
                 # Customer Decision #2: Automatic asymmetric intervals
                 # Detect metric type and set asymmetry coefficients
@@ -788,7 +810,7 @@ class CashFlowForecastCalculator:
 
     def _build_metadata(self, forecast_horizon: int) -> Dict[str, Any]:
         """
-        Build metadata dict with confidence level, forecast horizon, excluded periods, warnings, and spillover.
+        Build metadata dict with confidence level, forecast horizon, excluded periods, warnings, spillover, and volatility statistics.
 
         Args:
             forecast_horizon: Number of forecast months
@@ -796,12 +818,16 @@ class CashFlowForecastCalculator:
         Returns:
             Metadata dict with all required fields
         """
+        # Get confidence level from scenario or default
+        confidence_level = self.forecast_scenario.parameters.get('confidence_level', 0.80)
+
         metadata = {
-            'confidence_level': 0.80,
+            'confidence_level': confidence_level,
             'forecast_horizon': forecast_horizon,
             'excluded_periods': [],
             'warnings': self.warnings,
-            'uncollected_spillover': getattr(self, 'uncollected_spillover', None)
+            'uncollected_spillover': getattr(self, 'uncollected_spillover', None),
+            'volatility_statistics': self.volatility_metadata if self.volatility_metadata else None
         }
 
         # Add excluded periods if anomaly annotations were used
