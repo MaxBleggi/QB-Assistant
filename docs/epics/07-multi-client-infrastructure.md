@@ -48,7 +48,7 @@ Implement the client folder structure convention (e.g., `clients/[client-name]/`
 
 ### Sprint 7.2: File Selection & Validation Workflow
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Implement file selection workflow for the 4 required QuickBooks input files (Balance Sheet, Profit & Loss, Cash Flow Statement, Historical Data CSV). Add file picker dialogs to the GUI that allow the user to browse and select each file type. Validate that all 4 required files are selected before allowing the user to proceed. Store the selected file paths in application state for use by the processing pipeline. Display the selected filenames in the GUI so the user can verify their selections. Implement "Clear Selections" functionality to reset the file pickers. Follow existing GUI patterns from ClientSelectionForm for consistency.
@@ -68,7 +68,7 @@ Implement file selection workflow for the 4 required QuickBooks input files (Bal
 
 ### Sprint 7.3: Core Pipeline Integration & Orchestration
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Integrate all service components from Epics 1-6 into a complete processing pipeline orchestrated from the GUI. Implement "Process Data" button that triggers the full workflow: load selected input files → parse financial data (Epic 1 ParserService) → calculate metrics (Epic 2 MetricsCalculatorService) → apply budget defaults (Epic 3 BudgetDefaultsService) → run forecasting scenarios (Epic 4 ForecastingEngine) → generate Excel report (Epic 6 ReportGeneratorService) → save report to client folder with timestamped filename (e.g., `clients/ClientName/ClientName_Report_2026-01-25.xlsx`). Load the selected client's configuration from Sprint 7.1 and pass parameters to each service. Implement basic error catching to prevent application crashes (log errors to console for debugging). This sprint focuses on getting the technical integration working end-to-end without UX polish.

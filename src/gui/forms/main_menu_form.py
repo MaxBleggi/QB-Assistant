@@ -7,6 +7,12 @@ Provides central navigation hub to access all parameter configuration tools:
 - Forecast Scenarios
 """
 import tkinter as tk
+from tkinter import messagebox
+
+from ...services.pipeline_orchestrator import PipelineOrchestrator
+from ...loaders.exceptions import FileLoaderError
+from ...metrics.exceptions import CalculationError
+from ...utils.error_mapper import ErrorMapper
 
 
 class MainMenuForm(tk.Frame):
@@ -116,6 +122,18 @@ class MainMenuForm(tk.Frame):
             font=('Arial', 10, 'bold')
         )
         file_selection_btn.pack(pady=10)
+
+        # Process Data button
+        process_data_btn = tk.Button(
+            nav_frame,
+            text="Process Data",
+            command=self._on_process_data,
+            width=30,
+            bg='#4CAF50',
+            fg='white',
+            font=('Arial', 10, 'bold')
+        )
+        process_data_btn.pack(pady=10)
 
         # Status message label
         self.status_label = tk.Label(
@@ -260,6 +278,17 @@ class MainMenuForm(tk.Frame):
             fg='#4CAF50'
         )
 
+    def _update_progress_status(self, message: str) -> None:
+        """
+        Update progress status in GUI during pipeline processing.
+
+        Displays in-progress message in blue color to indicate active processing.
+
+        Args:
+            message: Progress message to display (e.g., 'Parsing Balance Sheet...')
+        """
+        self.status_label.config(text=message, fg='#2196F3')
+
     def on_sample_params_clicked(self) -> None:
         """
         Handle Sample Parameters button click - navigate to SampleParamsForm.
@@ -301,3 +330,128 @@ class MainMenuForm(tk.Frame):
         """
         from .file_selection_form import FileSelectionForm
         self.parent.show_form(FileSelectionForm)
+
+    def _on_process_data(self) -> None:
+        """
+        Handle Process Data button click - validate selections and trigger pipeline.
+
+        Validates that required files are selected, then invokes PipelineOrchestrator
+        to execute the complete processing workflow. Shows success/error messages
+        based on pipeline results.
+        """
+        # Get reference to app for cleaner code
+        app = self.parent
+
+        # Validate required files are selected
+        if app.selected_client is None:
+            messagebox.showerror(
+                "Missing Client",
+                "Please select a client before processing data."
+            )
+            return
+
+        if app.selected_balance_sheet is None:
+            messagebox.showerror(
+                "Missing File",
+                "Please select a balance sheet file."
+            )
+            return
+
+        if app.selected_profit_loss is None:
+            messagebox.showerror(
+                "Missing File",
+                "Please select a profit & loss file."
+            )
+            return
+
+        if app.selected_cash_flow is None:
+            messagebox.showerror(
+                "Missing File",
+                "Please select a cash flow file."
+            )
+            return
+
+        # Historical data is optional - don't block if missing
+        # (Pipeline will handle None gracefully)
+
+        # All required validations passed - execute pipeline
+        try:
+            # Instantiate orchestrator with project root
+            orchestrator = PipelineOrchestrator(str(app.project_root))
+
+            # Call process_pipeline with all file paths and client name
+            result = orchestrator.process_pipeline(
+                balance_sheet_path=app.selected_balance_sheet,
+                pl_path=app.selected_profit_loss,
+                cash_flow_path=app.selected_cash_flow,
+                historical_path=app.selected_historical_data,  # May be None
+                client_name=app.selected_client,
+                progress_callback=self._update_progress_status
+            )
+
+            # Handle result based on status
+            if result['status'] == 'success':
+                # Update status label to green success message
+                self.status_label.config(text="Processing complete!", fg='#4CAF50')
+                messagebox.showinfo(
+                    "Processing Complete",
+                    f"Data processed successfully!\n\nReport saved to:\n{result['report_path']}"
+                )
+            elif result['status'] == 'partial':
+                # Some stages failed but report was generated
+                error_summary = result['errors'][0] if result['errors'] else "Unknown error"
+                messagebox.showwarning(
+                    "Processing Completed with Warnings",
+                    f"Report generated but some stages encountered errors:\n\n{error_summary}\n\nReport saved to:\n{result['report_path']}"
+                )
+            else:
+                # Failed - no report generated
+                error_summary = result['errors'][0] if result['errors'] else "Unknown error"
+                messagebox.showerror(
+                    "Processing Failed",
+                    f"Data processing failed:\n\n{error_summary}"
+                )
+
+        except FileLoaderError as e:
+            # File loading errors - use ErrorMapper for user-friendly message
+            title, message = ErrorMapper.get_user_friendly_message(e)
+            self.status_label.config(text="", fg='#666')  # Reset status label
+            messagebox.showerror(title, message)
+            print(f"File loading error: {e}")
+
+        except CalculationError as e:
+            # Calculation errors - use ErrorMapper for user-friendly message
+            title, message = ErrorMapper.get_user_friendly_message(e)
+            self.status_label.config(text="", fg='#666')  # Reset status label
+            messagebox.showerror(title, message)
+            print(f"Calculation error: {e}")
+
+        except FileNotFoundError as e:
+            # File not found - use ErrorMapper for user-friendly message
+            title, message = ErrorMapper.get_user_friendly_message(e)
+            self.status_label.config(text="", fg='#666')  # Reset status label
+            messagebox.showerror(title, message)
+            print(f"File not found: {e}")
+
+        except ValueError as e:
+            # Value/format errors - use ErrorMapper for user-friendly message
+            title, message = ErrorMapper.get_user_friendly_message(e)
+            self.status_label.config(text="", fg='#666')  # Reset status label
+            messagebox.showerror(title, message)
+            print(f"Data format error: {e}")
+
+        except KeyError as e:
+            # Missing data field errors - use ErrorMapper for user-friendly message
+            title, message = ErrorMapper.get_user_friendly_message(e)
+            self.status_label.config(text="", fg='#666')  # Reset status label
+            messagebox.showerror(title, message)
+            print(f"Missing data field: {e}")
+
+        except Exception as e:
+            # Generic fallback for unexpected exceptions
+            title, message = ErrorMapper.get_user_friendly_message(e)
+            self.status_label.config(text="", fg='#666')  # Reset status label
+            messagebox.showerror(title, message)
+            print(f"Exception during pipeline execution: {e}")
+            import traceback
+            traceback.print_exc()

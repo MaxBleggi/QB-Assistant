@@ -124,6 +124,24 @@ class App(tk.Tk):
 
         return self._global_config
 
+    def get_client_config_path(self) -> Optional[str]:
+        """
+        Get client configuration file path for selected client.
+
+        Constructs path to client's config.yaml file using pattern:
+        clients/{selected_client}/config.yaml
+
+        Returns:
+            String path to client config file, or None if no client selected
+
+        Raises:
+            ValueError: If selected_client is None (no client selected)
+        """
+        if self.selected_client is None:
+            raise ValueError("No client selected. Please select a client first.")
+
+        return f'clients/{self.selected_client}/config.yaml'
+
     def quit(self) -> None:
         """
         Cleanup resources and close application.
