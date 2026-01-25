@@ -168,7 +168,7 @@ Implement statistical methodology for calculating confidence intervals using his
 
 ### Sprint 4.6: Anomaly Exclusion Logic & Median-Based Statistics
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Integrate with user-annotated anomaly date ranges from Epic 5 Sprint 5.5. Load anomaly annotations from client configuration: array of `{start_date, end_date, reason, exclude_from: ['baseline', 'volatility', 'both']}`. Filter historical data to exclude anomalous periods before baseline calculation and volatility analysis. Implement median-based statistics for baseline calculation (robust to outliers even with exclusions). Apply exclusions consistently across Cash Flow and P&L forecasting. Validate anomaly date ranges (ensure start < end, dates are within historical data range, no overlapping periods). Include excluded period information in forecast metadata for transparency in reports. Handle edge cases: if too many periods excluded (>50% of data), warn user that forecast reliability is low; if all data excluded, return error.
@@ -195,7 +195,7 @@ Integrate with user-annotated anomaly date ranges from Epic 5 Sprint 5.5. Load a
 
 ### Sprint 4.7: Budget vs Forecast Variance Analysis
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Compare forecast projections to budget for overlapping periods to identify when business is tracking off-budget. Load budget data from Epic 3 BudgetModel for the current fiscal year. For each forecast month that has a corresponding budget month (e.g., if forecasting Apr-Sep and budget covers Jan-Dec, overlap is Apr-Sep), calculate variance: `variance_$ = forecast_projected - budget`, `variance_% = (forecast_projected - budget) / budget * 100`. Flag significant variances (default threshold: >10% deviation) with warnings: "Revenue forecast $45K is 12% below budget $51K for June - reforecasting may be needed". Generate variance report data structure compatible with Epic 6 report generation. Handle edge cases: forecast horizon extends beyond budget period (only compare overlapping months), budget doesn't exist yet (skip variance analysis with note), multiple scenarios (calculate variance for Expected scenario only by default, optionally for all scenarios).
