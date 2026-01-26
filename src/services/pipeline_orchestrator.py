@@ -193,19 +193,43 @@ class PipelineOrchestrator:
             errors.append(error_msg)
             return result
 
-        # === STAGE 4: Apply Budget Defaults ===
-        self._notify_progress(progress_callback, "Applying budget defaults...")
-        print("\n=== Stage 4: Applying budget defaults ===")
+        # === STAGE 4: Calculate Budget and Variance ===
+        self._notify_progress(progress_callback, "Calculating budget variance...")
+        print("\n=== Stage 4: Calculating budget and variance ===")
+        variance_model = None
         try:
-            # Call BudgetDefaultsService static method
-            variance_model = BudgetDefaultsService.calculate_defaults(
-                pl_model=pl_model,
+            # Step 1: Get intelligent defaults from historical data
+            defaults_dict = BudgetDefaultsService.calculate_defaults(
+                pl_model=historical_model if historical_model else pl_model,
                 bs_model=None
             )
-            print("Budget defaults calculated successfully")
+            print(f"Budget defaults calculated: {defaults_dict}")
+
+            # Step 2: Create parameter model
+            from ..models.parameters import ParameterModel
+            param_model = ParameterModel(defaults_dict)
+
+            # Step 3: Generate budget projections from historical data
+            if historical_model:
+                from ..services.budget_calculator import BudgetCalculator
+                budget_calc = BudgetCalculator(historical_model, param_model)
+                budget_model = budget_calc.calculate()
+                print("Budget model generated from historical data")
+
+                # Step 4: Calculate variance (budget vs current actual)
+                from ..services.budget_variance_calculator import BudgetVarianceCalculator
+                variance_calc = BudgetVarianceCalculator(budget_model, pl_model)
+                variance_model = variance_calc.calculate(
+                    threshold_pct=10.0,  # Flag variances > 10%
+                    threshold_abs=1000.0  # Flag variances > $1000
+                )
+                print("Variance model calculated successfully")
+            else:
+                print("Warning: No historical data - skipping variance calculation")
+                variance_model = None
 
         except Exception as e:
-            error_msg = f"Budget defaults calculation failed: {type(e).__name__}: {str(e)}"
+            error_msg = f"Budget variance calculation failed: {type(e).__name__}: {str(e)}"
             print(error_msg)
             errors.append(error_msg)
             # Continue with partial status - can still generate report without budget variance

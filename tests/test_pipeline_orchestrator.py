@@ -166,9 +166,18 @@ def test_successful_pipeline_execution(
         mock_hist_parser.parse.return_value = mock_parsed_models['historical']
         mock_hist_parser_class.return_value = mock_hist_parser
 
-        # Setup budget defaults service
-        mock_variance = Mock()
-        mock_budget_service.calculate_defaults.return_value = mock_variance
+        # Setup budget defaults service (returns dict, not VarianceModel)
+        mock_budget_service.calculate_defaults.return_value = {
+            'revenue_growth_rate': 0.05,
+            'expense_adjustment': 1.0,
+            'budget_methodology': 'Growth from Prior Year',
+            'category_growth_rates': {}
+        }
+
+        # Setup historical model with required attributes for BudgetCalculator
+        mock_parsed_models['historical'].hierarchy = {'Income': {}, 'Expenses': {}}
+        mock_parsed_models['historical'].get_periods.return_value = ['2023-01', '2023-02']
+        mock_parsed_models['pl'].hierarchy = {'Income': {}, 'Expenses': {}}
 
         # Setup scenario loading
         mock_load_scenarios.return_value = mock_scenarios_collection
@@ -298,8 +307,16 @@ def test_missing_historical_data_graceful(
         mock_hist_parser = Mock()
         mock_hist_parser_class.return_value = mock_hist_parser
 
-        mock_variance = Mock()
-        mock_budget_service.calculate_defaults.return_value = mock_variance
+        # Setup budget defaults service (returns dict)
+        mock_budget_service.calculate_defaults.return_value = {
+            'revenue_growth_rate': 0.05,
+            'expense_adjustment': 1.0,
+            'budget_methodology': 'Growth from Prior Year',
+            'category_growth_rates': {}
+        }
+
+        # Setup mock models for when historical_path=None (no variance calculation)
+        mock_parsed_models['pl'].hierarchy = {'Income': {}, 'Expenses': {}}
 
         mock_load_scenarios.return_value = mock_scenarios_collection
 
@@ -383,8 +400,18 @@ def test_empty_forecast_scenarios(
         mock_hist_parser.parse.return_value = mock_parsed_models['historical']
         mock_hist_parser_class.return_value = mock_hist_parser
 
-        mock_variance = Mock()
-        mock_budget_service.calculate_defaults.return_value = mock_variance
+        # Setup budget defaults service (returns dict)
+        mock_budget_service.calculate_defaults.return_value = {
+            'revenue_growth_rate': 0.05,
+            'expense_adjustment': 1.0,
+            'budget_methodology': 'Growth from Prior Year',
+            'category_growth_rates': {}
+        }
+
+        # Setup mock models for BudgetCalculator chain
+        mock_parsed_models['historical'].hierarchy = {'Income': {}, 'Expenses': {}}
+        mock_parsed_models['historical'].get_periods.return_value = ['2023-01', '2023-02']
+        mock_parsed_models['pl'].hierarchy = {'Income': {}, 'Expenses': {}}
 
         # Empty scenarios collection
         empty_collection = Mock()
@@ -469,8 +496,18 @@ def test_report_filename_format(
         mock_hist_parser.parse.return_value = mock_parsed_models['historical']
         mock_hist_parser_class.return_value = mock_hist_parser
 
-        mock_variance = Mock()
-        mock_budget_service.calculate_defaults.return_value = mock_variance
+        # Setup budget defaults service (returns dict)
+        mock_budget_service.calculate_defaults.return_value = {
+            'revenue_growth_rate': 0.05,
+            'expense_adjustment': 1.0,
+            'budget_methodology': 'Growth from Prior Year',
+            'category_growth_rates': {}
+        }
+
+        # Setup mock models for BudgetCalculator chain
+        mock_parsed_models['historical'].hierarchy = {'Income': {}, 'Expenses': {}}
+        mock_parsed_models['historical'].get_periods.return_value = ['2023-01', '2023-02']
+        mock_parsed_models['pl'].hierarchy = {'Income': {}, 'Expenses': {}}
 
         mock_load_scenarios.return_value = mock_scenarios_collection
 
@@ -554,8 +591,18 @@ def test_forecast_failure_partial_status(
         mock_hist_parser.parse.return_value = mock_parsed_models['historical']
         mock_hist_parser_class.return_value = mock_hist_parser
 
-        mock_variance = Mock()
-        mock_budget_service.calculate_defaults.return_value = mock_variance
+        # Setup budget defaults service (returns dict)
+        mock_budget_service.calculate_defaults.return_value = {
+            'revenue_growth_rate': 0.05,
+            'expense_adjustment': 1.0,
+            'budget_methodology': 'Growth from Prior Year',
+            'category_growth_rates': {}
+        }
+
+        # Setup mock models for BudgetCalculator chain
+        mock_parsed_models['historical'].hierarchy = {'Income': {}, 'Expenses': {}}
+        mock_parsed_models['historical'].get_periods.return_value = ['2023-01', '2023-02']
+        mock_parsed_models['pl'].hierarchy = {'Income': {}, 'Expenses': {}}
 
         mock_load_scenarios.return_value = mock_scenarios_collection
 
