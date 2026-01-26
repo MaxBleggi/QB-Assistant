@@ -1,0 +1,40 @@
+{
+  "budget_parameters": {
+    "revenue_growth_rate": 0.05,
+    "budget_methodology": "Growth from Prior Year",
+    "category_growth_rates": {},
+    "expense_adjustment_factor": 1.0
+  },
+  "forecast_scenarios": {
+    "scenarios": [
+      {
+        "scenario_id": "test_scenario_1",
+        "scenario_name": "Realistic",
+        "description": "Test scenario for pipeline validation",
+        "created_date": "2026-01-25T21:41:27.120537",
+        "parameters": {
+          "revenue_growth_rates": {
+            "monthly_rate": 0.05,
+            "use_averaged": true
+          },
+          "expense_trend_adjustments": {
+            "cogs_trend": 0.04,
+            "opex_trend": 0.03
+          },
+          "cash_flow_timing_params": {
+            "collection_period_days": 45,
+            "payment_terms_days": 30
+          },
+          "major_cash_events": {
+            "planned_capex": [],
+            "debt_payments": []
+          }
+        }
+      }
+    ]
+  },
+  "global_settings": {
+    "forecast_horizon_months": 6,
+    "confidence_level": 0.8
+  }
+}
