@@ -62,7 +62,7 @@ class FileSelectionForm(tk.Frame):
         # Balance Sheet row
         tk.Label(
             container,
-            text="Balance Sheet (.xlsx):",
+            text="Balance Sheet (.csv):",
             font=('Arial', 10),
             anchor='w'
         ).grid(row=0, column=0, sticky='w', pady=10, padx=(0, 10))
@@ -89,7 +89,7 @@ class FileSelectionForm(tk.Frame):
         # Profit & Loss row
         tk.Label(
             container,
-            text="Profit & Loss (.xlsx):",
+            text="Profit & Loss (.csv):",
             font=('Arial', 10),
             anchor='w'
         ).grid(row=1, column=0, sticky='w', pady=10, padx=(0, 10))
@@ -116,7 +116,7 @@ class FileSelectionForm(tk.Frame):
         # Cash Flow Statement row
         tk.Label(
             container,
-            text="Cash Flow Statement (.xlsx):",
+            text="Cash Flow Statement (.csv):",
             font=('Arial', 10),
             anchor='w'
         ).grid(row=2, column=0, sticky='w', pady=10, padx=(0, 10))
@@ -212,7 +212,7 @@ class FileSelectionForm(tk.Frame):
         """Handle Balance Sheet browse button click."""
         filepath = filedialog.askopenfilename(
             title="Select Balance Sheet",
-            filetypes=[("Excel files", "*.xlsx"), ("All files", "*.*")]
+            filetypes=[("CSV files", "*.csv"), ("All files", "*.*")]
         )
         if filepath:
             self.parent.selected_balance_sheet = filepath
@@ -223,7 +223,7 @@ class FileSelectionForm(tk.Frame):
         """Handle Profit & Loss browse button click."""
         filepath = filedialog.askopenfilename(
             title="Select Profit & Loss",
-            filetypes=[("Excel files", "*.xlsx"), ("All files", "*.*")]
+            filetypes=[("CSV files", "*.csv"), ("All files", "*.*")]
         )
         if filepath:
             self.parent.selected_profit_loss = filepath
@@ -234,7 +234,7 @@ class FileSelectionForm(tk.Frame):
         """Handle Cash Flow Statement browse button click."""
         filepath = filedialog.askopenfilename(
             title="Select Cash Flow Statement",
-            filetypes=[("Excel files", "*.xlsx"), ("All files", "*.*")]
+            filetypes=[("CSV files", "*.csv"), ("All files", "*.*")]
         )
         if filepath:
             self.parent.selected_cash_flow = filepath

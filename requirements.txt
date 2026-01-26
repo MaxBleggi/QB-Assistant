@@ -13,3 +13,6 @@ matplotlib>=3.5.0         # Time-series charting and anomaly visualization
 # Testing framework
 pytest>=7.0.0             # Unit testing framework
 pytest-cov                # Test coverage reporting
+
+pydantic
+pyyaml

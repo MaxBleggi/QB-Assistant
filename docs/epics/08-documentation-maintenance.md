@@ -1,6 +1,6 @@
 # Epic 8: Documentation & Maintenance
 
-**Status**: Not Started
+**Status**: In Progress
 **Priority**: High
 **Dependencies**: Epic 7 (complete project implementation)
 
@@ -28,7 +28,7 @@ The documentation enables smooth handoff to the client and ensures long-term mai
 
 ### Sprint 8.1: User Documentation
 
-**Status**: [ ] Not Started
+**Status**: [x] Done
 
 **Description**:
 Create user-facing documentation for QB-Assistant: README.md for installation and quick start (developer audience), and comprehensive usage_guide.md for the bookkeeper/accountant end user. The README should be concise and follow standard README conventions (installation, features, usage, support). The usage guide should be written for a non-technical accountant audience with step-by-step workflows, screenshots/descriptions of UI flows, and troubleshooting for common issues.
